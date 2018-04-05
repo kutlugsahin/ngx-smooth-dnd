@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "file": "ngx-smooth-dnd.js",
+  "sources": [
+    "ng://ngx-smooth-dnd/out/src/ngx-smooth-dnd.module.ts",
+    "ng://ngx-smooth-dnd/out/src/container/container.component.ts",
+    "ng://ngx-smooth-dnd/out/src/draggable/draggable.component.ts"
+  ],
+  "sourcesContent": [
+    "import { NgModule } from '@angular/core';\r\nimport { CommonModule } from '@angular/common';\r\nimport { ContainerComponent } from './container/container.component';\r\nimport { DraggableComponent } from './draggable/draggable.component';\r\n\r\n@NgModule({\r\n  imports: [CommonModule],\r\n  declarations: [ContainerComponent, DraggableComponent],\r\n  exports: [ContainerComponent, DraggableComponent]\r\n})\r\nexport class NgxSmoothDnDModule {}\r\n",
+    "import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';\r\nimport { DraggableComponent } from '../draggable/draggable.component';\r\nimport SmoothDnD from 'smooth-dnd';\r\n\r\n@Component({\r\n  // tslint:disable-next-line:component-selector\r\n  selector: 'ngx-smooth-dnd-container',\r\n  template: `<div #container>\r\n  <div>Draggable 1</div>\r\n  <div>Draggable 2</div>\r\n  <div>Draggable 3</div>\r\n  <!-- <ng-content></ng-content> -->\r\n</div>`\r\n})\r\nexport class ContainerComponent implements AfterViewInit {\r\n  @ContentChildren(DraggableComponent) tabs: QueryList<DraggableComponent>;\r\n  @ViewChild('container') containerElementRef: ElementRef;\r\n  @Input('options') options;\r\n  private container: any;\r\n  // contentChildren are set\r\n  ngAfterViewInit() {\r\n    this.container = SmoothDnD(this.containerElementRef.nativeElement, this.options);\r\n  }\r\n}\r\n",
+    "import { Component, Input } from '@angular/core';\r\n\r\n@Component({\r\n  // tslint:disable-next-line:component-selector\r\n  selector: 'ngx-smooth-dnd-draggable',\r\n  template: `<div [hidden]=\"!active\" class=\"pane\">\r\n  <ng-content></ng-content>\r\n</div>\r\n`,\r\n})\r\nexport class DraggableComponent {\r\n  @Input() tabTitle: string;\r\n  @Input() active = false;\r\n}\r\n"
+  ],
+  "names": [],
+  "mappings": ";;;;AEAA;;QAYA,IAAA,CAAA,MAAA,GAAoB,KAAK,CAAzB;;;;;IAVA,EAAA,IAAA,EAAC,SAAS,EAAV,IAAA,EAAA,CAAW;gBAET,QAAQ,EAAE,0BAA0B;gBACpC,QAAQ,EAAE,kFAGX;aACA,EAAD,EAAA;;;;IAEA,UAAA,EAAA,CAAA,EAAA,IAAA,EAAG,KAAK,EAAR,EAAA;IACA,QAAA,EAAA,CAAA,EAAA,IAAA,EAAG,KAAK,EAAR,EAAA;;ADZA;IAAA;;IAoBE,4CAAe,GAAf;QACE,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC,IAAI,CAAC,mBAAmB,CAAC,aAAa,EAAE,IAAI,CAAC,OAAO,CAAC,CAAC;KAClF;;;;IAlBH,EAAA,IAAA,EAAC,SAAS,EAAV,IAAA,EAAA,CAAW;gBAET,QAAQ,EAAE,0BAA0B;gBACpC,QAAQ,EAAE,8IAKL;aACN,EAAD,EAAA;;;;IAEA,MAAA,EAAA,CAAA,EAAA,IAAA,EAAG,eAAe,EAAlB,IAAA,EAAA,CAAmB,kBAAkB,EAArC,EAAA,EAAA;IACA,qBAAA,EAAA,CAAA,EAAA,IAAA,EAAG,SAAS,EAAZ,IAAA,EAAA,CAAa,WAAW,EAAxB,EAAA,EAAA;IACA,SAAA,EAAA,CAAA,EAAA,IAAA,EAAG,KAAK,EAAR,IAAA,EAAA,CAAS,SAAS,EAAlB,EAAA,EAAA;;ADjBA;IAAA;;;;;IAKA,EAAA,IAAA,EAAC,QAAQ,EAAT,IAAA,EAAA,CAAU;gBACR,OAAO,EAAE,CAAC,YAAY,CAAC;gBACvB,YAAY,EAAE,CAAC,kBAAkB,EAAE,kBAAkB,CAAC;gBACtD,OAAO,EAAE,CAAC,kBAAkB,EAAE,kBAAkB,CAAC;aAClD,EAAD,EAAA;;;;;;"
+}

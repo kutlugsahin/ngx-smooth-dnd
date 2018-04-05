@@ -1,0 +1,27 @@
+{
+  "$schema": "../../node_modules/ng-packagr/package.schema.json",
+  "name": "ngx-smooth-dnd",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "peerDependencies": {
+    "@angular/common": "^5.1.0",
+    "@angular/core": "^5.1.0",
+    "smooth-dnd": "^0.3.0"
+  },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "public_api.ts",
+      "umdModuleIds": {
+        "smooth-dnd": "SmoothDnD"
+      }
+    },
+    "dest": "../../ngx-smooth-dnd",
+    "whitelistedNonPeerDependencies": [
+      "."
+    ]
+  },
+  "dependencies": {
+    "smooth-dnd": "^0.3.0"
+  }
+}
