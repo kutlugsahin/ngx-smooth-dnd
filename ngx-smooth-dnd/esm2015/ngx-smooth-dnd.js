@@ -1,21 +1,26 @@
-import { Component, Input, ContentChildren, ViewChild, NgModule } from '@angular/core';
-import SmoothDnD from 'smooth-dnd';
+import { Component, ContentChildren, ViewChild, Input, Output, EventEmitter, NgModule } from '@angular/core';
+import SmoothDnD, { constants } from 'smooth-dnd';
 import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+const { wrapperClass, animationClass } = constants;
+const constantClasses = {
+    [wrapperClass]: true,
+    [animationClass]: true,
+};
 class DraggableComponent {
     constructor() {
-        this.active = false;
+        this.classList = Object.assign({}, constantClasses);
     }
 }
 DraggableComponent.decorators = [
     { type: Component, args: [{
                 // tslint:disable-next-line:component-selector
                 selector: 'ngx-smooth-dnd-draggable',
-                template: `<div [hidden]="!active" class="pane">
+                template: `<div [ngClass]="classList">
   <ng-content></ng-content>
 </div>
 `,
@@ -23,41 +28,66 @@ DraggableComponent.decorators = [
 ];
 /** @nocollapse */
 DraggableComponent.ctorParameters = () => [];
-DraggableComponent.propDecorators = {
-    "tabTitle": [{ type: Input },],
-    "active": [{ type: Input },],
-};
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @record
+ */
+
+/**
+ * @record
+ */
+
 class ContainerComponent {
+    constructor() {
+        this.onDrop = new EventEmitter();
+    }
     /**
      * @return {?}
      */
     ngAfterViewInit() {
-        this.container = SmoothDnD(this.containerElementRef.nativeElement, this.options);
+        this.container = SmoothDnD(this.containerElementRef.nativeElement, this.getOptions());
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.container.dispose();
+    }
+    /**
+     * @return {?}
+     */
+    getOptions() {
+        const /** @type {?} */ options = {};
+        if (this.orientation)
+            options.orientation = this.orientation;
+        if (this.onDrop)
+            options.onDrop = (removedIndex, addedIndex, payload, element) => {
+                this.onDrop.emit({
+                    removedIndex, addedIndex, payload, element
+                });
+            };
     }
 }
 ContainerComponent.decorators = [
     { type: Component, args: [{
                 // tslint:disable-next-line:component-selector
                 selector: 'ngx-smooth-dnd-container',
-                template: `<div #container>
-  <div>Draggable 1</div>
-  <div>Draggable 2</div>
-  <div>Draggable 3</div>
-  <!-- <ng-content></ng-content> -->
+                template: `<div #container [ngClass]="classList">
+  <ng-content></ng-content>
 </div>`
             },] },
 ];
 /** @nocollapse */
 ContainerComponent.ctorParameters = () => [];
 ContainerComponent.propDecorators = {
-    "tabs": [{ type: ContentChildren, args: [DraggableComponent,] },],
+    "draggables": [{ type: ContentChildren, args: [DraggableComponent,] },],
     "containerElementRef": [{ type: ViewChild, args: ['container',] },],
-    "options": [{ type: Input, args: ['options',] },],
+    "orientation": [{ type: Input, args: ['orientation',] },],
+    "onDrop": [{ type: Output },],
 };
 
 /**

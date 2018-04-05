@@ -1,4 +1,5 @@
 export declare class DraggableComponent {
-    tabTitle: string;
-    active: boolean;
+    classList: {
+        [x: number]: boolean;
+    };
 }

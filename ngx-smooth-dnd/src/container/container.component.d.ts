@@ -1,9 +1,22 @@
-import { QueryList, ElementRef, AfterViewInit } from '@angular/core';
+import { QueryList, ElementRef, AfterViewInit, OnDestroy, EventEmitter } from '@angular/core';
 import { DraggableComponent } from '../draggable/draggable.component';
-export declare class ContainerComponent implements AfterViewInit {
-    tabs: QueryList<DraggableComponent>;
-    containerElementRef: ElementRef;
-    options: any;
+export interface IDropResult {
+    removedIndex: number;
+    addedIndex: number;
+    payload: any;
+    element: Element;
+}
+export interface IContainerOptions {
+    orientation?: string;
+    onDrop?: (removedIndex: number, addedIndex: number, payload: any, element: Element) => void;
+}
+export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     private container;
+    draggables: QueryList<DraggableComponent>;
+    containerElementRef: ElementRef;
+    orientation: any;
+    onDrop: EventEmitter<IDropResult>;
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
+    private getOptions();
 }
