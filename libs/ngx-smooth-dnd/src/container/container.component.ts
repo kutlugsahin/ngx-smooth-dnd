@@ -4,22 +4,39 @@ import SmoothDnD, { constants } from 'smooth-dnd';
 
 // tslint:disable:no-output-on-prefix
 
-export interface IDropResult {
+export interface IDropParams {
   removedIndex: number,
   addedIndex: number,
   payload: any,
   element: Element,
 }
 
+export type IPayload = any;
+
 export interface IContainerOptions {
   orientation?: string;
-  onDrop?: (removedIndex: number, addedIndex: number, payload: any, element: Element) => void
+  behaviour?: string;
+  groupName?: string;
+  lockAxis?: string;
+  dragHandleSelector?: string;
+  nonDragAreaSelector?: string;
+  dragBeginDelay?: number;
+  animationDuration?: number;
+  autoScrollEnabled?: boolean;
+  dragClass?: string;
+  dropClass?: string;
+  onDragStart?: (index: number, payload: IPayload) => void;
+  onDrop?: (removedIndex: number, addedIndex: number, payload: any, element: Element) => void;
+  getChildPayload?: (index: number) => {};
+  shouldAnimateDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
+  shouldAcceptDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
+  onDragEnter?: () => void;
+  onDragLeave?: () => void;
 }
-
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'ngx-smooth-dnd-container',
+  selector: 'container',
   templateUrl: './container.component.html'
 })
 export class ContainerComponent implements AfterViewInit, OnDestroy {
@@ -28,7 +45,24 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('container') containerElementRef: ElementRef;
 
   @Input('orientation') orientation;
-  @Output() onDrop = new EventEmitter<IDropResult>();
+  @Input('behaviour') behaviour;
+  @Input('groupName') groupName;
+  @Input('lockAxis') lockAxis;
+  @Input('dragHandleSelector') dragHandleSelector;
+  @Input('nonDragAreaSelector') nonDragAreaSelector;
+  @Input('dragBeginDelay') dragBeginDelay;
+  @Input('animationDuration') animationDuration;
+  @Input('autoScrollEnabled') autoScrollEnabled;
+  @Input('dragClass') dragClass;
+  @Input('dropClass') dropClass;
+
+  @Output() dragStart = new EventEmitter<{ index: number; payload: IPayload}>();
+  @Output() drop = new EventEmitter<IDropParams>();
+  @Input() getChildPayload: (index: number) => {};
+  @Input() shouldAnimateDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
+  @Input() shouldAcceptDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
+  @Output() dragEnter = new EventEmitter();
+  @Output() dragLeave = new EventEmitter();
 
   ngAfterViewInit() {
     this.container = SmoothDnD(this.containerElementRef.nativeElement, this.getOptions());
@@ -37,14 +71,39 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
     this.container.dispose();
   }
 
-  private getOptions() {
+  private getOptions(): IContainerOptions {    
     const options: IContainerOptions = {};
     if (this.orientation) options.orientation = this.orientation;
+    if (this.behaviour) options.behaviour = this.behaviour;
+    if (this.groupName) options.groupName = this.groupName;
+    if (this.lockAxis) options.lockAxis = this.lockAxis;
+    if (this.dragHandleSelector) options.dragHandleSelector = this.dragHandleSelector;
+    if (this.nonDragAreaSelector) options.nonDragAreaSelector = this.nonDragAreaSelector;
+    if (this.dragBeginDelay) options.dragBeginDelay = this.dragBeginDelay;
+    if (this.animationDuration) options.animationDuration = this.animationDuration;
+    if (this.autoScrollEnabled) options.autoScrollEnabled = this.autoScrollEnabled;
+    if (this.dragClass) options.dragClass = this.dragClass;
+    if (this.dropClass) options.dropClass = this.dropClass;
     
-    if (this.onDrop) options.onDrop = (removedIndex: number, addedIndex: number, payload?: any, element?: Element) => {
-      this.onDrop.emit({
-        removedIndex, addedIndex, payload, element
-      });
+    if (this.dragStart) options.onDragStart = (index: number, payload: IPayload) => {
+      this.dragStart.emit({ index, payload });
     };
+
+    if (this.drop) options.onDrop = (removedIndex: number, addedIndex: number, payload: any, element: Element) => {
+      this.drop.emit({ removedIndex, addedIndex, payload, element });
+    };
+
+    if (this.getChildPayload) options.getChildPayload = this.getChildPayload;
+    if (this.shouldAnimateDrop) options.shouldAnimateDrop = this.shouldAnimateDrop;
+    if (this.shouldAcceptDrop) options.shouldAcceptDrop = this.shouldAcceptDrop;
+
+    if (this.drop) options.onDrop = (removedIndex: number, addedIndex: number, payload: any, element: Element) => {
+      this.drop.emit({ removedIndex, addedIndex, payload, element });
+    };
+
+    if (this.dragEnter) options.onDragEnter = () => this.dragEnter.emit();
+    if (this.dragLeave) options.onDragLeave = () => this.dragLeave.emit();
+
+    return options;
   }
 }

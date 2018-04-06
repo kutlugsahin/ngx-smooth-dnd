@@ -12,7 +12,7 @@ const constantClasses = {
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'ngx-smooth-dnd-draggable',
+  selector: 'draggable',
   templateUrl: './draggable.component.html',
 })
 export class DraggableComponent {

@@ -17,14 +17,17 @@ var DraggableComponent = /** @class */ (function () {
 }());
 DraggableComponent.decorators = [
     { type: core.Component, args: [{
-                selector: 'ngx-smooth-dnd-draggable',
+                selector: 'draggable',
                 template: "<div [ngClass]=\"classList\">\n  <ng-content></ng-content>\n</div>\n",
             },] },
 ];
 DraggableComponent.ctorParameters = function () { return []; };
 var ContainerComponent = /** @class */ (function () {
     function ContainerComponent() {
-        this.onDrop = new core.EventEmitter();
+        this.dragStart = new core.EventEmitter();
+        this.drop = new core.EventEmitter();
+        this.dragEnter = new core.EventEmitter();
+        this.dragLeave = new core.EventEmitter();
     }
     ContainerComponent.prototype.ngAfterViewInit = function () {
         this.container = SmoothDnD__default(this.containerElementRef.nativeElement, this.getOptions());
@@ -37,18 +40,55 @@ var ContainerComponent = /** @class */ (function () {
         var options = {};
         if (this.orientation)
             options.orientation = this.orientation;
-        if (this.onDrop)
-            options.onDrop = function (removedIndex, addedIndex, payload, element) {
-                _this.onDrop.emit({
-                    removedIndex: removedIndex, addedIndex: addedIndex, payload: payload, element: element
-                });
+        if (this.behaviour)
+            options.behaviour = this.behaviour;
+        if (this.groupName)
+            options.groupName = this.groupName;
+        if (this.lockAxis)
+            options.lockAxis = this.lockAxis;
+        if (this.dragHandleSelector)
+            options.dragHandleSelector = this.dragHandleSelector;
+        if (this.nonDragAreaSelector)
+            options.nonDragAreaSelector = this.nonDragAreaSelector;
+        if (this.dragBeginDelay)
+            options.dragBeginDelay = this.dragBeginDelay;
+        if (this.animationDuration)
+            options.animationDuration = this.animationDuration;
+        if (this.autoScrollEnabled)
+            options.autoScrollEnabled = this.autoScrollEnabled;
+        if (this.dragClass)
+            options.dragClass = this.dragClass;
+        if (this.dropClass)
+            options.dropClass = this.dropClass;
+        if (this.dragStart)
+            options.onDragStart = function (index, payload) {
+                _this.dragStart.emit({ index: index, payload: payload });
             };
+        if (this.drop)
+            options.onDrop = function (removedIndex, addedIndex, payload, element) {
+                _this.drop.emit({ removedIndex: removedIndex, addedIndex: addedIndex, payload: payload, element: element });
+            };
+        if (this.getChildPayload)
+            options.getChildPayload = this.getChildPayload;
+        if (this.shouldAnimateDrop)
+            options.shouldAnimateDrop = this.shouldAnimateDrop;
+        if (this.shouldAcceptDrop)
+            options.shouldAcceptDrop = this.shouldAcceptDrop;
+        if (this.drop)
+            options.onDrop = function (removedIndex, addedIndex, payload, element) {
+                _this.drop.emit({ removedIndex: removedIndex, addedIndex: addedIndex, payload: payload, element: element });
+            };
+        if (this.dragEnter)
+            options.onDragEnter = function () { return _this.dragEnter.emit(); };
+        if (this.dragLeave)
+            options.onDragLeave = function () { return _this.dragLeave.emit(); };
+        return options;
     };
     return ContainerComponent;
 }());
 ContainerComponent.decorators = [
     { type: core.Component, args: [{
-                selector: 'ngx-smooth-dnd-container',
+                selector: 'container',
                 template: "<div #container [ngClass]=\"classList\">\n  <ng-content></ng-content>\n</div>"
             },] },
 ];
@@ -57,7 +97,23 @@ ContainerComponent.propDecorators = {
     "draggables": [{ type: core.ContentChildren, args: [DraggableComponent,] },],
     "containerElementRef": [{ type: core.ViewChild, args: ['container',] },],
     "orientation": [{ type: core.Input, args: ['orientation',] },],
-    "onDrop": [{ type: core.Output },],
+    "behaviour": [{ type: core.Input, args: ['behaviour',] },],
+    "groupName": [{ type: core.Input, args: ['groupName',] },],
+    "lockAxis": [{ type: core.Input, args: ['lockAxis',] },],
+    "dragHandleSelector": [{ type: core.Input, args: ['dragHandleSelector',] },],
+    "nonDragAreaSelector": [{ type: core.Input, args: ['nonDragAreaSelector',] },],
+    "dragBeginDelay": [{ type: core.Input, args: ['dragBeginDelay',] },],
+    "animationDuration": [{ type: core.Input, args: ['animationDuration',] },],
+    "autoScrollEnabled": [{ type: core.Input, args: ['autoScrollEnabled',] },],
+    "dragClass": [{ type: core.Input, args: ['dragClass',] },],
+    "dropClass": [{ type: core.Input, args: ['dropClass',] },],
+    "dragStart": [{ type: core.Output },],
+    "drop": [{ type: core.Output },],
+    "getChildPayload": [{ type: core.Input },],
+    "shouldAnimateDrop": [{ type: core.Input },],
+    "shouldAcceptDrop": [{ type: core.Input },],
+    "dragEnter": [{ type: core.Output },],
+    "dragLeave": [{ type: core.Output },],
 };
 var NgxSmoothDnDModule = /** @class */ (function () {
     function NgxSmoothDnDModule() {
