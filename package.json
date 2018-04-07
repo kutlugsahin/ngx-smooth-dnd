@@ -38,7 +38,7 @@
     "@nrwl/nx": "0.6.19",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.2",
-    "smooth-dnd": "^0.2.6",
+    "smooth-dnd": "^0.3.0",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

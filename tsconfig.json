@@ -16,7 +16,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "ngx-smooth-dnd": ["ngx-smooth-dnd"]
+      "ngx-smooth-dnd": ["./libs/ngx-smooth-dnd"]
     }
   },
   "exclude": [

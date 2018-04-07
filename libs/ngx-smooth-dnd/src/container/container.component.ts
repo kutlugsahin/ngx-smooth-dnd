@@ -1,9 +1,24 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, AfterContentChecked } from '@angular/core';
 import { DraggableComponent } from '../draggable/draggable.component';
-import SmoothDnD, { constants } from 'smooth-dnd';
+import SmoothDnD, { constants, dropHandlers } from 'smooth-dnd';
+import { wrappedError } from '@angular/core/src/error_handler';
 
+SmoothDnD.wrapChild = (child) => {
+  return child;
+}
+
+SmoothDnD.dropHandler =  dropHandlers.reactDropHandler().handler;
+
+const {
+  wrapperClass,
+  animationClass
+} = constants;
+
+const wrapperConstantClasses = {
+  [wrapperClass]: true,
+  [animationClass]: true,
+};
 // tslint:disable:no-output-on-prefix
-
 export interface IDropParams {
   removedIndex: number,
   addedIndex: number,
@@ -26,7 +41,7 @@ export interface IContainerOptions {
   dragClass?: string;
   dropClass?: string;
   onDragStart?: (index: number, payload: IPayload) => void;
-  onDrop?: (removedIndex: number, addedIndex: number, payload: any, element: Element) => void;
+  onDrop?: (dropResult: IDropParams) => void;
   getChildPayload?: (index: number) => {};
   shouldAnimateDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
   shouldAcceptDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
@@ -36,10 +51,10 @@ export interface IContainerOptions {
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'container',
+  selector: '[container]',
   templateUrl: './container.component.html'
 })
-export class ContainerComponent implements AfterViewInit, OnDestroy {
+export class ContainerComponent implements AfterViewInit, OnDestroy, OnChanges, AfterContentChecked {  
   private container: any;
   @ContentChildren(DraggableComponent) draggables: QueryList<DraggableComponent>;
   @ViewChild('container') containerElementRef: ElementRef;
@@ -64,11 +79,22 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   @Output() dragEnter = new EventEmitter();
   @Output() dragLeave = new EventEmitter();
 
+  wrapperClassList = Object.assign({}, wrapperConstantClasses);
+
   ngAfterViewInit() {
     this.container = SmoothDnD(this.containerElementRef.nativeElement, this.getOptions());
   }
   ngOnDestroy(): void {
     this.container.dispose();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    throw new Error("Method not implemented.");
+  }
+
+  ngAfterContentChecked(): void {
+    console.log(this.draggables.length);
   }
 
   private getOptions(): IContainerOptions {    
@@ -89,17 +115,13 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
       this.dragStart.emit({ index, payload });
     };
 
-    if (this.drop) options.onDrop = (removedIndex: number, addedIndex: number, payload: any, element: Element) => {
-      this.drop.emit({ removedIndex, addedIndex, payload, element });
+    if (this.drop) options.onDrop = (dropResult: IDropParams) => {
+      this.drop.emit(dropResult);
     };
 
     if (this.getChildPayload) options.getChildPayload = this.getChildPayload;
     if (this.shouldAnimateDrop) options.shouldAnimateDrop = this.shouldAnimateDrop;
     if (this.shouldAcceptDrop) options.shouldAcceptDrop = this.shouldAcceptDrop;
-
-    if (this.drop) options.onDrop = (removedIndex: number, addedIndex: number, payload: any, element: Element) => {
-      this.drop.emit({ removedIndex, addedIndex, payload, element });
-    };
 
     if (this.dragEnter) options.onDragEnter = () => this.dragEnter.emit();
     if (this.dragLeave) options.onDragLeave = () => this.dragLeave.emit();

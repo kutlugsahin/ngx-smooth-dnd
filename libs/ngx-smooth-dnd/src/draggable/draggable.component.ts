@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, Output } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, Output, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { constants } from 'smooth-dnd';
 const {
   wrapperClass,
@@ -12,9 +12,14 @@ const constantClasses = {
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'draggable',
-  templateUrl: './draggable.component.html',
+  selector: '[draggable]',
+  templateUrl: './draggable.component.html'
 })
-export class DraggableComponent {
-  classList = Object.assign({}, constantClasses);
+export class DraggableComponent implements AfterViewInit {
+  @ViewChild('draggableWrapper') wrapper: ElementRef;
+  classList = `${wrapperClass} ${animationClass}`
+
+  ngAfterViewInit() {
+    this.wrapper.nativeElement.parentElement.className = 'smooth-dnd-draggable-wrapper';
+  }
 }

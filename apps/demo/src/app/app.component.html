@@ -1,9 +1,9 @@
 
 Hello smooth-dnd
-<container>
-	<draggable>Draggable 1</draggable>
-	<draggable>Draggable 2</draggable>
-	<draggable>Draggable 3</draggable>
-	<draggable>Draggable 4</draggable>
-	<draggable>Draggable 5</draggable>
-</container>
+<button (click)="addItem()"></button>
+<br>
+<div container (drop)="onDrop($event)">
+	<div draggable *ngFor="let item of items">
+		{{item.data}}
+	</div>
+</div>
