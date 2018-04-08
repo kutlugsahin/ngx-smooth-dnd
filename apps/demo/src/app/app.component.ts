@@ -18,4 +18,8 @@ export class AppComponent {
   selectPage(page) {
     this.selectedPage = page;
   }
+
+  openCode() {
+    window.open(this.selectedPage.url, '_blank');
+  }
 }
