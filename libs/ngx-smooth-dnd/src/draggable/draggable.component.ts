@@ -12,7 +12,7 @@ const constantClasses = {
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: '[draggable]',
+  selector: 'smooth-dnd-draggable',
   templateUrl: './draggable.component.html'
 })
 export class DraggableComponent implements AfterViewInit {
@@ -20,6 +20,6 @@ export class DraggableComponent implements AfterViewInit {
   classList = `${wrapperClass} ${animationClass}`
 
   ngAfterViewInit() {
-    this.wrapper.nativeElement.parentElement.className = 'smooth-dnd-draggable-wrapper';
+    this.wrapper.nativeElement.parentElement.className = constants.wrapperClass;
   }
 }

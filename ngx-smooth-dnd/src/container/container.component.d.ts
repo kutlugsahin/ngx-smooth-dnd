@@ -1,4 +1,4 @@
-import { QueryList, ElementRef, AfterViewInit, OnDestroy, EventEmitter } from '@angular/core';
+import { QueryList, ElementRef, AfterViewInit, OnDestroy, EventEmitter, NgZone } from '@angular/core';
 import { DraggableComponent } from '../draggable/draggable.component';
 export interface IDropParams {
     removedIndex: number;
@@ -20,7 +20,7 @@ export interface IContainerOptions {
     dragClass?: string;
     dropClass?: string;
     onDragStart?: (index: number, payload: IPayload) => void;
-    onDrop?: (removedIndex: number, addedIndex: number, payload: any, element: Element) => void;
+    onDrop?: (dropResult: IDropParams) => void;
     getChildPayload?: (index: number) => {};
     shouldAnimateDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
     shouldAcceptDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
@@ -28,6 +28,7 @@ export interface IContainerOptions {
     onDragLeave?: () => void;
 }
 export declare class ContainerComponent implements AfterViewInit, OnDestroy {
+    private _ngZone;
     private container;
     draggables: QueryList<DraggableComponent>;
     containerElementRef: ElementRef;
@@ -52,7 +53,12 @@ export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     shouldAcceptDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
     dragEnter: EventEmitter<{}>;
     dragLeave: EventEmitter<{}>;
+    wrapperClassList: {
+        [x: number]: boolean;
+    };
+    constructor(_ngZone: NgZone);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     private getOptions();
+    private getNgZone(clb);
 }

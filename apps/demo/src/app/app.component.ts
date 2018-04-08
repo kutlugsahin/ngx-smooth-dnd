@@ -25,16 +25,12 @@ export const applyDrag = (arr, dragResult) => {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   @ViewChild(ContainerComponent) container: ContainerComponent;
   items: any[];
   constructor() {
-    this.items = [{data: 'asdasda'}];
+    this.items = [{ data: 'asdasda' }];
   }
-
-  ngOnInit() {
-  }
-
 
   addItem() {
     this.items = [...this.items, {
@@ -42,8 +38,35 @@ export class AppComponent implements OnInit {
     }];
   }
 
+  resetList() {
+    setTimeout(() => {
+      this.items = applyDrag(this.items, {
+        removedIndex: 1,
+        addedIndex: 5
+      });
+    }, 100);
+  }
+
   onDrop(event) {
+    console.log('drop:' + event);
     this.items = applyDrag(this.items, event);
+  }
+
+  onDragStart(event) {
+    console.log('drag start:' + event);
+  }
+
+  onDragEnter(event) {
+    console.log('drag enter:' + event);
+
+  }
+
+  onDragLeave(event) {
+    console.log('drag leave:' + event);    
+  }
+
+  getChildPayload(index) {
+    console.log('child payload:' + index);
   }
 
 }

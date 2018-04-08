@@ -19,7 +19,8 @@
     "format": "./node_modules/.bin/nx format write",
     "format:write": "./node_modules/.bin/nx format write",
     "format:check": "./node_modules/.bin/nx format check",
-    "nx-migrate": "./node_modules/.bin/nx migrate"
+    "nx-migrate": "./node_modules/.bin/nx migrate",
+    "publish": "npm run build:lib && npm publish ngx-smooth-dnd"
   },
   "private": true,
   "dependencies": {

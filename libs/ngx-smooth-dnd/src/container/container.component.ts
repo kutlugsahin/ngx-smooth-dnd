@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, AfterContentChecked } from '@angular/core';
+import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, AfterContentChecked, NgZone } from '@angular/core';
 import { DraggableComponent } from '../draggable/draggable.component';
 import SmoothDnD, { constants, dropHandlers } from 'smooth-dnd';
 import { wrappedError } from '@angular/core/src/error_handler';
@@ -51,10 +51,10 @@ export interface IContainerOptions {
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: '[container]',
+  selector: 'smooth-dnd-container',
   templateUrl: './container.component.html'
 })
-export class ContainerComponent implements AfterViewInit, OnDestroy, OnChanges, AfterContentChecked {  
+export class ContainerComponent implements AfterViewInit, OnDestroy {  
   private container: any;
   @ContentChildren(DraggableComponent) draggables: QueryList<DraggableComponent>;
   @ViewChild('container') containerElementRef: ElementRef;
@@ -79,22 +79,13 @@ export class ContainerComponent implements AfterViewInit, OnDestroy, OnChanges, 
   @Output() dragEnter = new EventEmitter();
   @Output() dragLeave = new EventEmitter();
 
-  wrapperClassList = Object.assign({}, wrapperConstantClasses);
+  constructor(private _ngZone: NgZone) { };
 
   ngAfterViewInit() {
     this.container = SmoothDnD(this.containerElementRef.nativeElement, this.getOptions());
   }
   ngOnDestroy(): void {
     this.container.dispose();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    throw new Error("Method not implemented.");
-  }
-
-  ngAfterContentChecked(): void {
-    console.log(this.draggables.length);
   }
 
   private getOptions(): IContainerOptions {    
@@ -112,20 +103,30 @@ export class ContainerComponent implements AfterViewInit, OnDestroy, OnChanges, 
     if (this.dropClass) options.dropClass = this.dropClass;
     
     if (this.dragStart) options.onDragStart = (index: number, payload: IPayload) => {
-      this.dragStart.emit({ index, payload });
+      this.getNgZone(() => {
+        this.dragStart.emit({ index, payload });
+      })
     };
 
     if (this.drop) options.onDrop = (dropResult: IDropParams) => {
-      this.drop.emit(dropResult);
+      this.getNgZone(() => {
+        this.drop.emit(dropResult);
+      })
     };
 
     if (this.getChildPayload) options.getChildPayload = this.getChildPayload;
     if (this.shouldAnimateDrop) options.shouldAnimateDrop = this.shouldAnimateDrop;
     if (this.shouldAcceptDrop) options.shouldAcceptDrop = this.shouldAcceptDrop;
 
-    if (this.dragEnter) options.onDragEnter = () => this.dragEnter.emit();
-    if (this.dragLeave) options.onDragLeave = () => this.dragLeave.emit();
+    if (this.dragEnter) options.onDragEnter = () => this.getNgZone(() => this.dragEnter.emit());
+    if (this.dragLeave) options.onDragLeave = () => this.getNgZone(() => this.dragLeave.emit());
 
     return options;
+  }
+
+  private getNgZone(clb) {
+    this._ngZone.run(() => {
+      clb();
+    });
   }
 }

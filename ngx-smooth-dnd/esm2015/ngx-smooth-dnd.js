@@ -1,5 +1,5 @@
-import { Component, ContentChildren, ViewChild, Input, Output, EventEmitter, NgModule } from '@angular/core';
-import SmoothDnD, { constants } from 'smooth-dnd';
+import { Component, ViewChild, ContentChildren, Input, Output, EventEmitter, NgZone, NgModule } from '@angular/core';
+import SmoothDnD, { constants, dropHandlers } from 'smooth-dnd';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -7,32 +7,45 @@ import { CommonModule } from '@angular/common';
  * @suppress {checkTypes} checked by tsc
  */
 const { wrapperClass, animationClass } = constants;
-const constantClasses = {
-    [wrapperClass]: true,
-    [animationClass]: true,
-};
 class DraggableComponent {
     constructor() {
-        this.classList = Object.assign({}, constantClasses);
+        this.classList = `${wrapperClass} ${animationClass}`;
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        this.wrapper.nativeElement.parentElement.className = 'smooth-dnd-draggable-wrapper';
     }
 }
 DraggableComponent.decorators = [
     { type: Component, args: [{
                 // tslint:disable-next-line:component-selector
-                selector: 'draggable',
-                template: `<div [ngClass]="classList">
-  <ng-content></ng-content>
-</div>
-`,
+                selector: '[draggable]',
+                template: `<div #draggableWrapper>
+    <ng-content></ng-content>
+</div>`
             },] },
 ];
 /** @nocollapse */
 DraggableComponent.ctorParameters = () => [];
+DraggableComponent.propDecorators = {
+    "wrapper": [{ type: ViewChild, args: ['draggableWrapper',] },],
+};
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+SmoothDnD.wrapChild = (child) => {
+    return child;
+};
+SmoothDnD.dropHandler = dropHandlers.reactDropHandler().handler;
+const { wrapperClass: wrapperClass$1, animationClass: animationClass$1 } = constants;
+const wrapperConstantClasses = {
+    [wrapperClass$1]: true,
+    [animationClass$1]: true,
+};
 /**
  * @record
  */
@@ -42,12 +55,18 @@ DraggableComponent.ctorParameters = () => [];
  */
 
 class ContainerComponent {
-    constructor() {
+    /**
+     * @param {?} _ngZone
+     */
+    constructor(_ngZone) {
+        this._ngZone = _ngZone;
         this.dragStart = new EventEmitter();
         this.drop = new EventEmitter();
         this.dragEnter = new EventEmitter();
         this.dragLeave = new EventEmitter();
+        this.wrapperClassList = Object.assign({}, wrapperConstantClasses);
     }
+    ;
     /**
      * @return {?}
      */
@@ -89,11 +108,15 @@ class ContainerComponent {
             options.dropClass = this.dropClass;
         if (this.dragStart)
             options.onDragStart = (index, payload) => {
-                this.dragStart.emit({ index, payload });
+                this.getNgZone(() => {
+                    this.dragStart.emit({ index, payload });
+                });
             };
         if (this.drop)
-            options.onDrop = (removedIndex, addedIndex, payload, element) => {
-                this.drop.emit({ removedIndex, addedIndex, payload, element });
+            options.onDrop = (dropResult) => {
+                this.getNgZone(() => {
+                    this.drop.emit(dropResult);
+                });
             };
         if (this.getChildPayload)
             options.getChildPayload = this.getChildPayload;
@@ -101,28 +124,35 @@ class ContainerComponent {
             options.shouldAnimateDrop = this.shouldAnimateDrop;
         if (this.shouldAcceptDrop)
             options.shouldAcceptDrop = this.shouldAcceptDrop;
-        if (this.drop)
-            options.onDrop = (removedIndex, addedIndex, payload, element) => {
-                this.drop.emit({ removedIndex, addedIndex, payload, element });
-            };
         if (this.dragEnter)
-            options.onDragEnter = () => this.dragEnter.emit();
+            options.onDragEnter = () => this.getNgZone(() => this.dragEnter.emit());
         if (this.dragLeave)
-            options.onDragLeave = () => this.dragLeave.emit();
+            options.onDragLeave = () => this.getNgZone(() => this.dragLeave.emit());
         return options;
+    }
+    /**
+     * @param {?} clb
+     * @return {?}
+     */
+    getNgZone(clb) {
+        this._ngZone.run(() => {
+            clb();
+        });
     }
 }
 ContainerComponent.decorators = [
     { type: Component, args: [{
                 // tslint:disable-next-line:component-selector
-                selector: 'container',
-                template: `<div #container [ngClass]="classList">
-  <ng-content></ng-content>
+                selector: '[container]',
+                template: `<div #container>
+    <ng-content></ng-content>
 </div>`
             },] },
 ];
 /** @nocollapse */
-ContainerComponent.ctorParameters = () => [];
+ContainerComponent.ctorParameters = () => [
+    { type: NgZone, },
+];
 ContainerComponent.propDecorators = {
     "draggables": [{ type: ContentChildren, args: [DraggableComponent,] },],
     "containerElementRef": [{ type: ViewChild, args: ['container',] },],
