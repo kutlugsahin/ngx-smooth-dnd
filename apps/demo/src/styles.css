@@ -364,7 +364,7 @@ body{
 
 .form-line {
   padding: 20px 30px;
-  /* background-color: #f3f3f3; */
+  background-color: #f8f9fa;
   border: 1px solid transparent;
   border-radius: 6px;
   transition: all .3s ease;
