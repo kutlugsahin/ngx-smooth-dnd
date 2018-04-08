@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy, OnInit, Output, EventEmitter, OnChanges, SimpleChanges, AfterContentChecked, NgZone } from '@angular/core';
+import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
 import { DraggableComponent } from '../draggable/draggable.component';
 import SmoothDnD, { constants, dropHandlers } from 'smooth-dnd';
 import { wrappedError } from '@angular/core/src/error_handler';

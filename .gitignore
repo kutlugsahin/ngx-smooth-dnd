@@ -4,6 +4,7 @@
 /tmp
 /out-tsc
 /ngx-tabs-lib
+/build
 
 # dependencies
 /node_modules

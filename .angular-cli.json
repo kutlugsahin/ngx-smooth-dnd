@@ -48,7 +48,7 @@
     {
       "name": "demo",
       "root": "apps/demo/src",
-      "outDir": "dist/apps/demo",
+      "outDir": "build",
       "assets": [
         "assets",
         "favicon.ico"
@@ -71,33 +71,8 @@
       }
     },
     {
-      "name": "demo-packaged",
-      "root": "apps/demo/src",
-      "outDir": "dist/apps/demo-packaged",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "../../../test.js",
-      "tsconfig": "tsconfig.packaged.json",
-      "testTsconfig": "../../../tsconfig.spec.json",
-      "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      }
-    },
-    {
-      "name": "ngx-tabs-lib",
-      "root": "libs/ngx-tabs-lib/src",
+      "name": "ngx-smooth-dnd",
+      "root": "libs/ngx-smooth-dnd/src",
       "test": "../../../test.js",
       "appRoot": ""
     }

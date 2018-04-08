@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, Output, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { constants } from 'smooth-dnd';
 const {
   wrapperClass,
