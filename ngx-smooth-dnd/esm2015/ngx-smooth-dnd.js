@@ -15,16 +15,16 @@ class DraggableComponent {
      * @return {?}
      */
     ngAfterViewInit() {
-        this.wrapper.nativeElement.parentElement.className = 'smooth-dnd-draggable-wrapper';
+        this.wrapper.nativeElement.parentElement.className = constants.wrapperClass;
     }
 }
 DraggableComponent.decorators = [
     { type: Component, args: [{
                 // tslint:disable-next-line:component-selector
-                selector: '[draggable]',
-                template: `<div #draggableWrapper>
+                selector: 'smooth-dnd-draggable',
+                template: `<ng-container #draggableWrapper>
     <ng-content></ng-content>
-</div>`
+</ng-container>`
             },] },
 ];
 /** @nocollapse */
@@ -41,11 +41,6 @@ SmoothDnD.wrapChild = (child) => {
     return child;
 };
 SmoothDnD.dropHandler = dropHandlers.reactDropHandler().handler;
-const { wrapperClass: wrapperClass$1, animationClass: animationClass$1 } = constants;
-const wrapperConstantClasses = {
-    [wrapperClass$1]: true,
-    [animationClass$1]: true,
-};
 /**
  * @record
  */
@@ -64,7 +59,6 @@ class ContainerComponent {
         this.drop = new EventEmitter();
         this.dragEnter = new EventEmitter();
         this.dragLeave = new EventEmitter();
-        this.wrapperClassList = Object.assign({}, wrapperConstantClasses);
     }
     ;
     /**
@@ -143,7 +137,7 @@ class ContainerComponent {
 ContainerComponent.decorators = [
     { type: Component, args: [{
                 // tslint:disable-next-line:component-selector
-                selector: '[container]',
+                selector: 'smooth-dnd-container',
                 template: `<div #container>
     <ng-content></ng-content>
 </div>`

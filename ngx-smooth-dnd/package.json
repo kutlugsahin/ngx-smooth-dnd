@@ -6,10 +6,10 @@
   "peerDependencies": {
     "@angular/common": "^5.1.0",
     "@angular/core": "^5.1.0",
-    "smooth-dnd": "^0.3.1"
+    "smooth-dnd": "^0.3.2"
   },
   "dependencies": {
-    "smooth-dnd": "^0.3.1",
+    "smooth-dnd": "^0.3.2",
     "tslib": "^1.7.1"
   },
   "main": "bundles/ngx-smooth-dnd.umd.js",

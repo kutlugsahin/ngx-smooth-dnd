@@ -1,27 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ContainerComponent, DraggableComponent } from 'ngx-smooth-dnd';
+import { Component } from '@angular/core';
+import { ContainerComponent, DraggableComponent, IDropResult } from 'ngx-smooth-dnd';
 import { applyDrag, generateItems } from './utils';
 
 @Component({
-	selector: 'app-simple',
-	template: `
-		<div>
-			<div class="simple-page">
-				<smooth-dnd-container (drop)="onDrop($event)">            
-					<smooth-dnd-draggable *ngFor="let item of items">
-						<div class="draggable-item">
-							{{item.data}}
-						</div>
-					</smooth-dnd-draggable>
-				</smooth-dnd-container>
-			</div>
-		</div>
-	`
+  selector: 'app-simple',
+  template: `
+    <div>
+      <div class="simple-page">
+        <smooth-dnd-container (drop)="onDrop($event)">            
+          <smooth-dnd-draggable *ngFor="let item of items">
+            <div class="draggable-item">
+              {{item.data}}
+            </div>
+          </smooth-dnd-draggable>
+        </smooth-dnd-container>
+      </div>
+    </div>
+  `
 })
 export class SimpleComponent {
-	items = generateItems(50, i => ({ data: 'Draggable ' + i }))
-
-	onDrop(dropResult) {
-		this.items = applyDrag(this.items, dropResult);
-	}
+  items = generateItems(50, i => ({ data: 'Draggable ' + i }))
+  onDrop({ removedIndex }: IDropResult) {
+    this.items = applyDrag(this.items, { removedIndex });
+  }
 }

@@ -19,7 +19,7 @@ const wrapperConstantClasses = {
   [animationClass]: true,
 };
 // tslint:disable:no-output-on-prefix
-export interface IDropParams {
+export interface IDropResult {
   removedIndex: number,
   addedIndex: number,
   payload: any,
@@ -41,7 +41,7 @@ export interface IContainerOptions {
   dragClass?: string;
   dropClass?: string;
   onDragStart?: (index: number, payload: IPayload) => void;
-  onDrop?: (dropResult: IDropParams) => void;
+  onDrop?: (dropResult: IDropResult) => void;
   getChildPayload?: (index: number) => {};
   shouldAnimateDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
   shouldAcceptDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
@@ -72,7 +72,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   @Input('dropClass') dropClass;
 
   @Output() dragStart = new EventEmitter<{ index: number; payload: IPayload}>();
-  @Output() drop = new EventEmitter<IDropParams>();
+  @Output() drop = new EventEmitter<IDropResult>();
   @Input() getChildPayload: (index: number) => {};
   @Input() shouldAnimateDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
   @Input() shouldAcceptDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
@@ -108,7 +108,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
       })
     };
 
-    if (this.drop) options.onDrop = (dropResult: IDropParams) => {
+    if (this.drop) options.onDrop = (dropResult: IDropResult) => {
       this.getNgZone(() => {
         this.drop.emit(dropResult);
       })

@@ -9,14 +9,14 @@ var DraggableComponent = /** @class */ (function () {
         this.classList = wrapperClass + " " + animationClass;
     }
     DraggableComponent.prototype.ngAfterViewInit = function () {
-        this.wrapper.nativeElement.parentElement.className = 'smooth-dnd-draggable-wrapper';
+        this.wrapper.nativeElement.parentElement.className = constants.wrapperClass;
     };
     return DraggableComponent;
 }());
 DraggableComponent.decorators = [
     { type: Component, args: [{
-                selector: '[draggable]',
-                template: "<div #draggableWrapper>\n    <ng-content></ng-content>\n</div>"
+                selector: 'smooth-dnd-draggable',
+                template: "<ng-container #draggableWrapper>\n    <ng-content></ng-content>\n</ng-container>"
             },] },
 ];
 DraggableComponent.ctorParameters = function () { return []; };
@@ -27,9 +27,6 @@ SmoothDnD.wrapChild = function (child) {
     return child;
 };
 SmoothDnD.dropHandler = dropHandlers.reactDropHandler().handler;
-var wrapperClass$1 = constants.wrapperClass;
-var animationClass$1 = constants.animationClass;
-var wrapperConstantClasses = (_a = {}, _a[wrapperClass$1] = true, _a[animationClass$1] = true, _a);
 var ContainerComponent = /** @class */ (function () {
     function ContainerComponent(_ngZone) {
         this._ngZone = _ngZone;
@@ -37,7 +34,6 @@ var ContainerComponent = /** @class */ (function () {
         this.drop = new EventEmitter();
         this.dragEnter = new EventEmitter();
         this.dragLeave = new EventEmitter();
-        this.wrapperClassList = Object.assign({}, wrapperConstantClasses);
     }
     
     ContainerComponent.prototype.ngAfterViewInit = function () {
@@ -104,7 +100,7 @@ var ContainerComponent = /** @class */ (function () {
 }());
 ContainerComponent.decorators = [
     { type: Component, args: [{
-                selector: '[container]',
+                selector: 'smooth-dnd-container',
                 template: "<div #container>\n    <ng-content></ng-content>\n</div>"
             },] },
 ];
@@ -146,7 +142,6 @@ NgxSmoothDnDModule.decorators = [
             },] },
 ];
 NgxSmoothDnDModule.ctorParameters = function () { return []; };
-var _a;
 
 export { NgxSmoothDnDModule, ContainerComponent, DraggableComponent };
 //# sourceMappingURL=ngx-smooth-dnd.js.map
