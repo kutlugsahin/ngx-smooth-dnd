@@ -818,9 +818,8 @@ var SimpleComponent = /** @class */ (function () {
     function SimpleComponent() {
         this.items = Object(__WEBPACK_IMPORTED_MODULE_1__utils__["b" /* generateItems */])(50, function (i) { return ({ data: 'Draggable ' + i }); });
     }
-    SimpleComponent.prototype.onDrop = function (_a) {
-        var removedIndex = _a.removedIndex;
-        this.items = Object(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* applyDrag */])(this.items, { removedIndex: removedIndex });
+    SimpleComponent.prototype.onDrop = function (dropResult) {
+        this.items = Object(__WEBPACK_IMPORTED_MODULE_1__utils__["a" /* applyDrag */])(this.items, dropResult);
     };
     SimpleComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
