@@ -1,15 +1,43 @@
 
-Hello smooth-dnd
-<button (click)="addItem()">Add item</button>
-<button (click)="resetList()">reset list</button>
-<br>
-<smooth-dnd-container 
-(drop)="onDrop($event)"
-(dragStart)="onDragStart($event)"
-(dragEnter)="onDragEnter($event)"
-(dragLeave)="onDragLeave($event)"
-[getChildPayload]="getChildPayload">
-	<smooth-dnd-draggable *ngFor="let item of items">
-		{{item.data}}
-	</smooth-dnd-draggable>
-</smooth-dnd-container>
+<div [ngClass]="'app'">
+	<div [ngClass]="navButtonClass" (click)="toggleNav()">
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+	<div [ngClass]="navigatorClass">
+		<div [ngClass]="'navigator-content'">
+			<div [ngClass]="'navigator-header'">
+				<h3>ngx-smooth-dnd</h3>
+				<div [ngClass]="'divider'"></div>
+			</div>
+			<div>
+				<div *ngFor="let section of pages" [ngClass]="'menu-section'">
+					<h4>{{section.title}}</h4>
+					<ul>						
+						<li *ngFor="let page of section.pages" [ngClass]="page.selected ? 'selected' : ''" (click)="selectPage(page)">{{page.title}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div [ngClass]="'content'">
+		<div [ngClass]="headerClass">
+			{{selectedPage.title}}
+			<div [ngClass]="'source-code'" (click)="openCode()">
+				<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZml0PSIiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiIGZvY3VzYWJsZT0iZmFsc2UiPgogICAgPHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwVjB6Ij48L3BhdGg+CiAgICA8cGF0aCBkPSJNOS40IDE2LjZMNC44IDEybDQuNi00LjZMOCA2bC02IDYgNiA2IDEuNC0xLjR6bTUuMiAwbDQuNi00LjYtNC42LTQuNkwxNiA2bDYgNi02IDYtMS40LTEuNHoiIGZpbGw9IiNGRkYiPjwvcGF0aD4KPC9zdmc+Cg=="
+				 alt="" />
+				<span>source</span>
+			</div>
+		</div>
+		<div [ngClass]="'demo'">
+			<app-simple *ngIf="selectedPage.page == 'simple'"></app-simple>
+			<app-simple-scroller *ngIf="selectedPage.page == 'simple-scroller'"></app-simple-scroller>
+			<app-simple-horizontal *ngIf="selectedPage.page == 'simple-horizontal'"></app-simple-horizontal>
+			<app-groups *ngIf="selectedPage.page == 'groups'"></app-groups>
+			<app-copy *ngIf="selectedPage.page == 'copy'"></app-copy>
+			<app-nested *ngIf="selectedPage.page == 'nested'"></app-nested>
+		</div>
+	</div>
+</div>
