@@ -13,7 +13,7 @@ import { applyDrag, generateItems } from './utils';
 							{{item.data}}
 						</div>
 						<div *ngIf="item.type == 'container'">
-							<div [ngStyle]="innerContainerClass">
+							<div [ngStyle]="innerContainerStyle">
                 <h4>Sortable List</h4>
                 <div style="{ 'cursor': 'default' }">
                   <smooth-dnd-container (drop)="onInnerDrop(item, $event)">
@@ -55,7 +55,7 @@ export class NestedComponent {
 		};
 	}
 
-	innerContainerClass = {
+	innerContainerStyle = {
 		padding: '20px 20px',
 		marginTop: '2px',
 		marginBottom: '2px',

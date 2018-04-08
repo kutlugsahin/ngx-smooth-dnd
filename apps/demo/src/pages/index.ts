@@ -19,9 +19,14 @@ export * from './simple-horizontal';
 export * from './groups';
 export * from './copy';
 export * from './nested';
+export * from './drag-class';
+export * from './drag-delay';
+export * from './drag-handle';
+export * from './lock-axis';
+export * from './transition-duration';
 
 const getUrl = (pagename) => {
-	return `https://github.com/kutlugsahin/smooth-dnd-demo/blob/master/src/demo/pages/${pagename}`;
+	return `https://github.com/kutlugsahin/ngx-smooth-dnd/tree/master/apps/demo/src/pages/${pagename}`;
 };
 
 

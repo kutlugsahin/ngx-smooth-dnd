@@ -38,6 +38,11 @@
 			<app-groups *ngIf="selectedPage.page == 'groups'"></app-groups>
 			<app-copy *ngIf="selectedPage.page == 'copy'"></app-copy>
 			<app-nested *ngIf="selectedPage.page == 'nested'"></app-nested>
+			<app-lock-axis *ngIf="selectedPage.page == 'lock-axis'"></app-lock-axis>
+			<app-drag-handle *ngIf="selectedPage.page == 'drag-handle'"></app-drag-handle>
+			<app-drag-class *ngIf="selectedPage.page == 'drag-class'"></app-drag-class>
+			<app-drag-delay *ngIf="selectedPage.page == 'drag-delay'"></app-drag-delay>
+			<app-transition-duration *ngIf="selectedPage.page == 'transition-duration'"></app-transition-duration>
 		</div>
 	</div>
 </div>
