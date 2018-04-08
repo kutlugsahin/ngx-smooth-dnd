@@ -20,7 +20,7 @@ import { applyDrag, generateItems } from './utils';
 })
 export class SimpleComponent {
   items = generateItems(50, i => ({ data: 'Draggable ' + i }))
-  onDrop({ removedIndex }: IDropResult) {
-    this.items = applyDrag(this.items, { removedIndex });
+  onDrop(dropResult: IDropResult) {
+    this.items = applyDrag(this.items, dropResult);
   }
 }
