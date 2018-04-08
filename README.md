@@ -102,7 +102,7 @@ onDragStart({index: number, payload: any}) {
 
 The event to be emitted by any relevant container when drop is over. (After drop animation ends). Source container and any container that could accept drop is considered relevant.
 
-```js
+```ts
 (drop)="onDrop($event)"
 
 onDrop(dropResult: IDropResult) {
@@ -120,7 +120,7 @@ onDrop(dropResult: IDropResult) {
 ### getChildPayload
 
 The function to be called to get the payload object to be passed **onDrop** function.
-```js
+```ts
 [getChildPayload]="getChildPayload"
 
 getChildPayload(index: number) {
@@ -141,7 +141,7 @@ Sometimes dragged item's dimensions are not suitable with the target container a
 ```ts
 [shouldAnimateDrop]="shouldAnimateDrop"
 
-function shouldAnimateDrop(sourceContainerOptions: IContainerOptions, payload: any) {
+shouldAnimateDrop(sourceContainerOptions: IContainerOptions, payload: any) {
   return false;
 }
 ```
@@ -158,7 +158,7 @@ The function to be called by all containers before drag starts to determine the 
 ```ts
 [shouldAcceptDrop]="shouldAcceptDrop"
 
-function shouldAcceptDrop(sourceContainerOptions, payload) {
+shouldAcceptDrop(sourceContainerOptions, payload) {
   return true;
 }
 ```
@@ -174,7 +174,7 @@ The event to be emitted by the relevant container whenever a dragged item enters
 ```ts
 (dragEnter)="onDragEnter()"
 
-function onDragEnter() {
+onDragEnter() {
   ...
 }
 ```
@@ -185,7 +185,7 @@ The event to be emitted by the relevant container whenever a dragged item leaves
 ```ts
 (dragLeave)="onDragLeave()"
 
-function onDragLeave() {
+onDragLeave() {
   ...
 }
 ```
