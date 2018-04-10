@@ -60,13 +60,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var AppComponent = /** @class */ (function () {
     function AppComponent() {
         this.pages = __WEBPACK_IMPORTED_MODULE_1__pages__["default"];
-        this.headerClass = {
-            header: true
-        };
+        this.isNavOpen = true;
+        this.navigatorClass = "navigator" + (this.isNavOpen ? ' open' : ' closed');
+        this.navButtonClass = "nav-button" + (this.isNavOpen ? ' open' : ' closed');
+        this.headerClass = "header" + (this.isNavOpen ? ' open' : ' closed');
         this.selectedPage = __WEBPACK_IMPORTED_MODULE_1__pages__["default"][0].pages[0];
     }
     AppComponent.prototype.selectPage = function (page) {
         this.selectedPage = page;
+    };
+    AppComponent.prototype.toggleNav = function () {
+        this.isNavOpen = !this.isNavOpen;
+        this.navigatorClass = "navigator" + (this.isNavOpen ? ' open' : ' closed');
+        this.navButtonClass = "nav-button" + (this.isNavOpen ? ' open' : ' closed');
+        this.headerClass = "header" + (this.isNavOpen ? ' open' : ' closed');
     };
     AppComponent.prototype.openCode = function () {
         window.open(this.selectedPage.url, '_blank');
