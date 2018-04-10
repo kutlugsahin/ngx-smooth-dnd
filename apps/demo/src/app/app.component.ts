@@ -9,14 +9,23 @@ import Pages from '../pages';
 })
 export class AppComponent {
   pages = Pages;
-  headerClass = {
-    header: true
-  }
+  isNavOpen = true;  
+
+  navigatorClass = `navigator${this.isNavOpen ? ' open' : ' closed'}`;
+  navButtonClass = `nav-button${this.isNavOpen ? ' open' : ' closed'}`;
+  headerClass = `header${this.isNavOpen ? ' open' : ' closed'}`;
 
   selectedPage = Pages[0].pages[0];
 
   selectPage(page) {
     this.selectedPage = page;
+  }
+
+  toggleNav() {
+    this.isNavOpen = !this.isNavOpen;
+    this.navigatorClass = `navigator${this.isNavOpen ? ' open' : ' closed'}`;
+    this.navButtonClass = `nav-button${this.isNavOpen ? ' open' : ' closed'}`;
+    this.headerClass = `header${this.isNavOpen ? ' open' : ' closed'}`;
   }
 
   openCode() {
