@@ -179,13 +179,13 @@ onDragEnter() {
 }
 ```
 
-### onDragLeave
+### dragLeave
 
 The event to be emitted by the relevant container whenever a dragged item leaves its boundaries while dragging.
 ```ts
 (dragLeave)="onDragLeave()"
 
-onDragLeave() {
+dragLeave() {
   ...
 }
 ```
