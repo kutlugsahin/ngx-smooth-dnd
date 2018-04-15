@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "ngx-smooth-dnd",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^5.1.0",
@@ -9,7 +9,7 @@
     "smooth-dnd": "^0.3.2"
   },
   "dependencies": {
-    "smooth-dnd": "^0.3.5",
+    "smooth-dnd": "^0.3.6",
     "tslib": "^1.7.1"
   },
   "main": "bundles/ngx-smooth-dnd.umd.js",
