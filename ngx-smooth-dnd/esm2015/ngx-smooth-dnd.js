@@ -6,16 +6,12 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const { wrapperClass, animationClass } = constants;
 class DraggableComponent {
-    constructor() {
-        this.classList = `${wrapperClass} ${animationClass}`;
-    }
     /**
      * @return {?}
      */
     ngAfterViewInit() {
-        this.wrapper.nativeElement.parentElement.className = constants.wrapperClass;
+        this.wrapper.nativeElement.parentNode.className = constants.wrapperClass;
     }
 }
 DraggableComponent.decorators = [

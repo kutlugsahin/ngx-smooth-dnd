@@ -17,9 +17,7 @@ const constantClasses = {
 })
 export class DraggableComponent implements AfterViewInit {
   @ViewChild('draggableWrapper') wrapper: ElementRef;
-  classList = `${wrapperClass} ${animationClass}`
-
   ngAfterViewInit() {
-    this.wrapper.nativeElement.parentElement.className = constants.wrapperClass;
+    this.wrapper.nativeElement.parentNode.className = constants.wrapperClass;
   }
 }

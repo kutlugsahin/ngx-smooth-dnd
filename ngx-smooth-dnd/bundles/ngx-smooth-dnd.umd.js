@@ -6,14 +6,11 @@
 
 var SmoothDnD__default = 'default' in SmoothDnD ? SmoothDnD['default'] : SmoothDnD;
 
-var wrapperClass = SmoothDnD.constants.wrapperClass;
-var animationClass = SmoothDnD.constants.animationClass;
 var DraggableComponent = /** @class */ (function () {
     function DraggableComponent() {
-        this.classList = wrapperClass + " " + animationClass;
     }
     DraggableComponent.prototype.ngAfterViewInit = function () {
-        this.wrapper.nativeElement.parentElement.className = SmoothDnD.constants.wrapperClass;
+        this.wrapper.nativeElement.parentNode.className = SmoothDnD.constants.wrapperClass;
     };
     return DraggableComponent;
 }());

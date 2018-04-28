@@ -2,14 +2,11 @@ import { Component, ViewChild, ContentChildren, Input, Output, EventEmitter, NgZ
 import SmoothDnD, { constants, dropHandlers } from 'smooth-dnd';
 import { CommonModule } from '@angular/common';
 
-var wrapperClass = constants.wrapperClass;
-var animationClass = constants.animationClass;
 var DraggableComponent = /** @class */ (function () {
     function DraggableComponent() {
-        this.classList = wrapperClass + " " + animationClass;
     }
     DraggableComponent.prototype.ngAfterViewInit = function () {
-        this.wrapper.nativeElement.parentElement.className = constants.wrapperClass;
+        this.wrapper.nativeElement.parentNode.className = constants.wrapperClass;
     };
     return DraggableComponent;
 }());
