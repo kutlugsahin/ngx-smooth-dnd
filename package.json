@@ -42,7 +42,7 @@
     "core-js": "^2.4.1",
     "intl": "^1.2.5",
     "rxjs": "^5.5.2",
-    "smooth-dnd": "^0.3.7",
+    "smooth-dnd": "^0.3.9",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.14"
   },
