@@ -1170,10 +1170,9 @@ var constantClasses = (_a = {},
     _a);
 var DraggableComponent = /** @class */ (function () {
     function DraggableComponent() {
-        this.classList = wrapperClass + " " + animationClass;
     }
     DraggableComponent.prototype.ngAfterViewInit = function () {
-        this.wrapper.nativeElement.parentElement.className = __WEBPACK_IMPORTED_MODULE_1_smooth_dnd__["constants"].wrapperClass;
+        this.wrapper.nativeElement.parentNode.className = __WEBPACK_IMPORTED_MODULE_1_smooth_dnd__["constants"].wrapperClass;
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_3" /* ViewChild */])('draggableWrapper'),
