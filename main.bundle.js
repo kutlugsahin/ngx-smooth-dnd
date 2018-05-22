@@ -244,10 +244,17 @@ var CardsComponent = /** @class */ (function () {
             return _this.scene.children.filter(function (p) { return p.id === columnId; })[0].children[index];
         };
     };
+    CardsComponent.prototype.log = function () {
+        var params = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            params[_i] = arguments[_i];
+        }
+        console.log.apply(console, params);
+    };
     CardsComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'app-cards',
-            template: "\n\t\t<div class=\"card-scene\">\n\t\t\t<smooth-dnd-container \n\t\t\t\t[orientation]=\"'horizontal'\" \n\t\t\t\t(drop)=\"onColumnDrop($event)\" \n\t\t\t\t[dragHandleSelector]=\"'.column-drag-handle'\"\n\t\t\t>\n\t\t\t\t<smooth-dnd-draggable *ngFor=\"let column of scene.children\">\n\t\t\t\t\t<div [ngClass]=\"column.props.className\">\n\t\t\t\t\t\t<div class=\"card-column-header\">\n\t\t\t\t\t\t\t<span class=\"column-drag-handle\">&#x2630;</span>\n\t\t\t\t\t\t\t{{column.name}}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<smooth-dnd-container \n\t\t\t\t\t\t\t[groupName]=\"'col'\"\n\t\t\t\t\t\t\t(drop)=\"onCardDrop(column.id, $event)\"\n\t\t\t\t\t\t\t[getChildPayload]=\"getCardPayload(column.id)\"\n\t\t\t\t\t\t\t[dragClass]=\"'card-ghost'\"\n\t\t\t\t\t\t\t[dropClass]=\"'card-ghost-drop'\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<smooth-dnd-draggable *ngFor=\"let card of column.children\">\n\t\t\t\t\t\t\t\t<div [ngClass]=\"card.props.className\" [ngStyle]=\"card.props.style\">\n\t\t\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\t\t\t{{card.data}}\n\t\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</smooth-dnd-draggable>\n\t\t\t\t\t\t</smooth-dnd-container>\n\t\t\t\t\t</div>\n\t\t\t\t</smooth-dnd-draggable>\n\t\t\t</smooth-dnd-container>\n    </div>\n\t"
+            template: "\n\t\t<div class=\"card-scene\">\n\t\t\t<smooth-dnd-container \n\t\t\t\t[orientation]=\"'horizontal'\" \n\t\t\t\t(drop)=\"onColumnDrop($event)\" \n\t\t\t\t[dragHandleSelector]=\"'.column-drag-handle'\"\n\t\t\t>\n\t\t\t\t<smooth-dnd-draggable *ngFor=\"let column of scene.children\">\n\t\t\t\t\t<div [ngClass]=\"column.props.className\">\n\t\t\t\t\t\t<div class=\"card-column-header\">\n\t\t\t\t\t\t\t<span class=\"column-drag-handle\">&#x2630;</span>\n\t\t\t\t\t\t\t{{column.name}}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<smooth-dnd-container \n\t\t\t\t\t\t\t[groupName]=\"'col'\"\n\t\t\t\t\t\t\t(drop)=\"onCardDrop(column.id, $event)\"\n\t\t\t\t\t\t\t[getChildPayload]=\"getCardPayload(column.id)\"\n\t\t\t\t\t\t\t[dragClass]=\"'card-ghost'\"\n\t\t\t\t\t\t\t[dropClass]=\"'card-ghost-drop'\"\n\t\t\t\t\t\t\t(dragStart)=\"log('drag start', $event)\"\n\t\t\t\t\t\t\t(dragEnd)=\"log('drag end', $event)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<smooth-dnd-draggable *ngFor=\"let card of column.children\">\n\t\t\t\t\t\t\t\t<div [ngClass]=\"card.props.className\" [ngStyle]=\"card.props.style\">\n\t\t\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\t\t\t{{card.data}}\n\t\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</smooth-dnd-draggable>\n\t\t\t\t\t\t</smooth-dnd-container>\n\t\t\t\t\t</div>\n\t\t\t\t</smooth-dnd-draggable>\n\t\t\t</smooth-dnd-container>\n    </div>\n\t"
         })
     ], CardsComponent);
     return CardsComponent;
@@ -976,11 +983,11 @@ var ContainerComponent = /** @class */ (function () {
     function ContainerComponent(_ngZone) {
         this._ngZone = _ngZone;
         this.dragStart = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* EventEmitter */]();
+        this.dragEnd = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* EventEmitter */]();
         this.drop = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* EventEmitter */]();
         this.dragEnter = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* EventEmitter */]();
         this.dragLeave = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* EventEmitter */]();
     }
-    ;
     ContainerComponent.prototype.ngAfterViewInit = function () {
         this.container = __WEBPACK_IMPORTED_MODULE_2_smooth_dnd___default()(this.containerElementRef.nativeElement, this.getOptions());
     };
@@ -1013,9 +1020,15 @@ var ContainerComponent = /** @class */ (function () {
         if (this.dropClass)
             options.dropClass = this.dropClass;
         if (this.dragStart)
-            options.onDragStart = function (index, payload) {
+            options.onDragStart = function (event) {
                 _this.getNgZone(function () {
-                    _this.dragStart.emit({ index: index, payload: payload });
+                    _this.dragStart.emit(event);
+                });
+            };
+        if (this.dragEnd)
+            options.onDragEnd = function (event) {
+                _this.getNgZone(function () {
+                    _this.dragEnd.emit(event);
                 });
             };
         if (this.drop)
@@ -1046,57 +1059,61 @@ var ContainerComponent = /** @class */ (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["Q" /* QueryList */])
     ], ContainerComponent.prototype, "draggables", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_3" /* ViewChild */])('container'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_3" /* ViewChild */])("container"),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* ElementRef */])
     ], ContainerComponent.prototype, "containerElementRef", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('orientation'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("orientation"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "orientation", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('behaviour'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("behaviour"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "behaviour", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('groupName'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("groupName"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "groupName", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('lockAxis'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("lockAxis"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "lockAxis", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('dragHandleSelector'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("dragHandleSelector"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "dragHandleSelector", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('nonDragAreaSelector'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("nonDragAreaSelector"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "nonDragAreaSelector", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('dragBeginDelay'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("dragBeginDelay"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "dragBeginDelay", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('animationDuration'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("animationDuration"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "animationDuration", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('autoScrollEnabled'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("autoScrollEnabled"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "autoScrollEnabled", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('dragClass'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("dragClass"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "dragClass", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])('dropClass'),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])("dropClass"),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "dropClass", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* Output */])(),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "dragStart", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* Output */])(),
+        __metadata("design:type", Object)
+    ], ContainerComponent.prototype, "dragEnd", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* Output */])(),
         __metadata("design:type", Object)
@@ -1124,7 +1141,7 @@ var ContainerComponent = /** @class */ (function () {
     ContainerComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             // tslint:disable-next-line:component-selector
-            selector: 'smooth-dnd-container',
+            selector: "smooth-dnd-container",
             template: __webpack_require__("../../../../../libs/ngx-smooth-dnd/src/container/container.component.html")
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* NgZone */]])
