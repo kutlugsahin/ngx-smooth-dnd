@@ -28,11 +28,11 @@ var ContainerComponent = /** @class */ (function () {
     function ContainerComponent(_ngZone) {
         this._ngZone = _ngZone;
         this.dragStart = new EventEmitter();
+        this.dragEnd = new EventEmitter();
         this.drop = new EventEmitter();
         this.dragEnter = new EventEmitter();
         this.dragLeave = new EventEmitter();
     }
-    
     ContainerComponent.prototype.ngAfterViewInit = function () {
         this.container = SmoothDnD(this.containerElementRef.nativeElement, this.getOptions());
     };
@@ -65,9 +65,15 @@ var ContainerComponent = /** @class */ (function () {
         if (this.dropClass)
             options.dropClass = this.dropClass;
         if (this.dragStart)
-            options.onDragStart = function (index, payload) {
+            options.onDragStart = function (event) {
                 _this.getNgZone(function () {
-                    _this.dragStart.emit({ index: index, payload: payload });
+                    _this.dragStart.emit(event);
+                });
+            };
+        if (this.dragEnd)
+            options.onDragEnd = function (event) {
+                _this.getNgZone(function () {
+                    _this.dragEnd.emit(event);
                 });
             };
         if (this.drop)
@@ -97,7 +103,7 @@ var ContainerComponent = /** @class */ (function () {
 }());
 ContainerComponent.decorators = [
     { type: Component, args: [{
-                selector: 'smooth-dnd-container',
+                selector: "smooth-dnd-container",
                 template: "<div #container>\n    <ng-content></ng-content>\n</div>"
             },] },
 ];
@@ -106,19 +112,20 @@ ContainerComponent.ctorParameters = function () { return [
 ]; };
 ContainerComponent.propDecorators = {
     "draggables": [{ type: ContentChildren, args: [DraggableComponent,] },],
-    "containerElementRef": [{ type: ViewChild, args: ['container',] },],
-    "orientation": [{ type: Input, args: ['orientation',] },],
-    "behaviour": [{ type: Input, args: ['behaviour',] },],
-    "groupName": [{ type: Input, args: ['groupName',] },],
-    "lockAxis": [{ type: Input, args: ['lockAxis',] },],
-    "dragHandleSelector": [{ type: Input, args: ['dragHandleSelector',] },],
-    "nonDragAreaSelector": [{ type: Input, args: ['nonDragAreaSelector',] },],
-    "dragBeginDelay": [{ type: Input, args: ['dragBeginDelay',] },],
-    "animationDuration": [{ type: Input, args: ['animationDuration',] },],
-    "autoScrollEnabled": [{ type: Input, args: ['autoScrollEnabled',] },],
-    "dragClass": [{ type: Input, args: ['dragClass',] },],
-    "dropClass": [{ type: Input, args: ['dropClass',] },],
+    "containerElementRef": [{ type: ViewChild, args: ["container",] },],
+    "orientation": [{ type: Input, args: ["orientation",] },],
+    "behaviour": [{ type: Input, args: ["behaviour",] },],
+    "groupName": [{ type: Input, args: ["groupName",] },],
+    "lockAxis": [{ type: Input, args: ["lockAxis",] },],
+    "dragHandleSelector": [{ type: Input, args: ["dragHandleSelector",] },],
+    "nonDragAreaSelector": [{ type: Input, args: ["nonDragAreaSelector",] },],
+    "dragBeginDelay": [{ type: Input, args: ["dragBeginDelay",] },],
+    "animationDuration": [{ type: Input, args: ["animationDuration",] },],
+    "autoScrollEnabled": [{ type: Input, args: ["autoScrollEnabled",] },],
+    "dragClass": [{ type: Input, args: ["dragClass",] },],
+    "dropClass": [{ type: Input, args: ["dropClass",] },],
     "dragStart": [{ type: Output },],
+    "dragEnd": [{ type: Output },],
     "drop": [{ type: Output },],
     "getChildPayload": [{ type: Input },],
     "shouldAnimateDrop": [{ type: Input },],

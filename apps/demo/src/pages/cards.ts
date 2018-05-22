@@ -35,6 +35,8 @@ const pickColor = () => {
 							[getChildPayload]="getCardPayload(column.id)"
 							[dragClass]="'card-ghost'"
 							[dropClass]="'card-ghost-drop'"
+							(dragStart)="log('drag start', $event)"
+							(dragEnd)="log('drag end', $event)"
 						>
 							<smooth-dnd-draggable *ngFor="let card of column.children">
 								<div [ngClass]="card.props.className" [ngStyle]="card.props.style">
@@ -102,5 +104,9 @@ export class CardsComponent {
 		return (index) => {
 			return this.scene.children.filter(p => p.id === columnId)[0].children[index];
 		}
+	}
+
+	log(...params) {
+		console.log(...params);
 	}
 }

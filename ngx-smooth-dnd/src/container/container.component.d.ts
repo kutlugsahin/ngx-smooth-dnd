@@ -3,8 +3,13 @@ import { DraggableComponent } from '../draggable/draggable.component';
 export interface IDropResult {
     removedIndex: number;
     addedIndex: number;
-    payload: any;
+    payload: IPayload;
     element: Element;
+}
+export interface IDragEvent {
+    isSource: boolean;
+    payload: IPayload;
+    willAcceptDrop: boolean;
 }
 export declare type IPayload = any;
 export interface IContainerOptions {
@@ -19,7 +24,8 @@ export interface IContainerOptions {
     autoScrollEnabled?: boolean;
     dragClass?: string;
     dropClass?: string;
-    onDragStart?: (index: number, payload: IPayload) => void;
+    onDragStart?: (dragEvent: IDragEvent) => void;
+    onDragEnd?: (dragEvent: IDragEvent) => void;
     onDrop?: (dropResult: IDropResult) => void;
     getChildPayload?: (index: number) => {};
     shouldAnimateDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
@@ -43,10 +49,8 @@ export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     autoScrollEnabled: any;
     dragClass: any;
     dropClass: any;
-    dragStart: EventEmitter<{
-        index: number;
-        payload: any;
-    }>;
+    dragStart: EventEmitter<IDragEvent>;
+    dragEnd: EventEmitter<IDragEvent>;
     drop: EventEmitter<IDropResult>;
     getChildPayload: (index: number) => {};
     shouldAnimateDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
