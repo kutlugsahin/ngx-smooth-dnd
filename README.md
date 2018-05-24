@@ -211,3 +211,7 @@ onDragLeave() {
 ### **smooth-dnd-draggable**
 
 Wrapper component for smooth-dnd-container's children. Every draggable element should be wrapped with **smooth-dnd-draggable** component.
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/kutlugsahin/ngx-smooth-dnd/badge.svg?style=beer-square)](https://beerpay.io/kutlugsahin/ngx-smooth-dnd)  [![Beerpay](https://beerpay.io/kutlugsahin/ngx-smooth-dnd/make-wish.svg?style=flat-square)](https://beerpay.io/kutlugsahin/ngx-smooth-dnd?focus=wish)
