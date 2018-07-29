@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "paths": {
-      "ngx-smooth-dnd": ["ngx-smooth-dnd"]
-    }
-  }
-}

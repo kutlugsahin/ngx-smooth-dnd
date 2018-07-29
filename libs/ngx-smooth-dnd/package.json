@@ -16,6 +16,6 @@
     ]
   },
   "dependencies": {
-    "smooth-dnd": "^0.5.4"
+    "smooth-dnd": "^0.5.7"
   }
 }
