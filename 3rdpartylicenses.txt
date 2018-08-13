@@ -390,7 +390,7 @@ Apache License
  See the License for the specific language governing permissions and
  limitations under the License.
 
-smooth-dnd@0.5.8
+smooth-dnd@0.5.9
 ISC
 ISC
 
