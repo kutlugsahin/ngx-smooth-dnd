@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "build:lib": "ng-packagr -p ./libs/ngx-smooth-dnd/package.json",
     "publish": "npm run build:lib && npm publish ngx-smooth-dnd",
-    "deploy": "ng build --base-href /ngx-smooth-dnd/ && gh-pages -d build"
+    "deploy": "ng build --base-href /ngx-smooth-dnd/ && gh-pages -d dist/ngxsmoothdnd"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +26,7 @@
     "classlist": "^2.0.0",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
+    "gh-pages": "^1.2.0",
     "intl": "^1.2.5",
     "ng-packagr": "^3.0.6",
     "rxjs": "^6.0.0",
