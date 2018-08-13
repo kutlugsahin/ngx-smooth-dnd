@@ -14746,7 +14746,7 @@ __webpack_require__(/*! intl/locale-data/jsonp/en */ "./node_modules/intl/locale
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\ksahin\Desktop\ngx-smooth-dnd\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! C:\Users\kutlu\Desktop\ngx-smooth-dnd\src\polyfills.ts */"./src/polyfills.ts");
 
 
 /***/ }),
