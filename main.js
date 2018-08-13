@@ -1318,7 +1318,7 @@ exports.generateItems = function (count, creator) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\kutlu\Desktop\ngx-smooth-dnd\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\ksahin\Desktop\ngx-smooth-dnd\src\main.ts */"./src/main.ts");
 
 
 /***/ })
