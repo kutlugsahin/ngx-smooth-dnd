@@ -36,7 +36,8 @@ const pickColor = () => {
 							[dragClass]="'card-ghost'"
 							[dropClass]="'card-ghost-drop'"
 							(dragStart)="log('drag start', $event)"
-							(dragEnd)="log('drag end', $event)"
+							(dragEnd)="log('drag end', $event)"		
+							(dropReady)="log('drop ready', $event)"					
 						>
 							<smooth-dnd-draggable *ngFor="let card of column.children">
 								<div [ngClass]="card.props.className" [ngStyle]="card.props.style">

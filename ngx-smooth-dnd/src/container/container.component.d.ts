@@ -32,6 +32,7 @@ export interface IContainerOptions {
     shouldAcceptDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
     onDragEnter?: () => void;
     onDragLeave?: () => void;
+    onDropReady?: (dropResult: IDropResult) => void;
 }
 export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     private _ngZone;
@@ -52,6 +53,7 @@ export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     dragStart: EventEmitter<IDragEvent>;
     dragEnd: EventEmitter<IDragEvent>;
     drop: EventEmitter<IDropResult>;
+    dropReady: EventEmitter<IDropResult>;
     getChildPayload: (index: number) => {};
     shouldAnimateDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
     shouldAcceptDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;

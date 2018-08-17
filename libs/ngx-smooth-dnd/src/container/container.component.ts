@@ -60,6 +60,7 @@ export interface IContainerOptions {
   ) => boolean;
   onDragEnter?: () => void;
   onDragLeave?: () => void;
+  onDropReady?: (dropResult: IDropResult) => void;
 }
 
 @Component({
@@ -88,6 +89,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   @Output() dragStart = new EventEmitter<IDragEvent>();
   @Output() dragEnd = new EventEmitter<IDragEvent>();
   @Output() drop = new EventEmitter<IDropResult>();
+  @Output() dropReady = new EventEmitter<IDropResult>();
   @Input() getChildPayload: (index: number) => {};
   @Input()
   shouldAnimateDrop: (
@@ -162,6 +164,13 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
       options.onDragEnter = () => this.getNgZone(() => this.dragEnter.emit());
     if (this.dragLeave)
       options.onDragLeave = () => this.getNgZone(() => this.dragLeave.emit());
+
+    if (this.dropReady)
+      options.onDropReady = (dropResult: IDropResult) => {
+        this.getNgZone(() => {
+          this.dropReady.emit(dropResult);
+        });
+      };
 
     return options;
   }
