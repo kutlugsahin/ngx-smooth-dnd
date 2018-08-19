@@ -86,6 +86,7 @@ var ContainerComponent = /** @class */ (function () {
         this.dragStart = new core_1.EventEmitter();
         this.dragEnd = new core_1.EventEmitter();
         this.drop = new core_1.EventEmitter();
+        this.dropReady = new core_1.EventEmitter();
         this.dragEnter = new core_1.EventEmitter();
         this.dragLeave = new core_1.EventEmitter();
     }
@@ -148,6 +149,12 @@ var ContainerComponent = /** @class */ (function () {
             options.onDragEnter = function () { return _this.getNgZone(function () { return _this.dragEnter.emit(); }); };
         if (this.dragLeave)
             options.onDragLeave = function () { return _this.getNgZone(function () { return _this.dragLeave.emit(); }); };
+        if (this.dropReady)
+            options.onDropReady = function (dropResult) {
+                _this.getNgZone(function () {
+                    _this.dropReady.emit(dropResult);
+                });
+            };
         return options;
     };
     ContainerComponent.prototype.getNgZone = function (clb) {
@@ -219,6 +226,10 @@ var ContainerComponent = /** @class */ (function () {
         core_1.Output(),
         __metadata("design:type", Object)
     ], ContainerComponent.prototype, "drop", void 0);
+    __decorate([
+        core_1.Output(),
+        __metadata("design:type", Object)
+    ], ContainerComponent.prototype, "dropReady", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Function)
@@ -629,7 +640,7 @@ var CardsComponent = /** @class */ (function () {
     CardsComponent = __decorate([
         core_1.Component({
             selector: 'app-cards',
-            template: "\n\t\t<div class=\"card-scene\">\n\t\t\t<smooth-dnd-container \n\t\t\t\t[orientation]=\"'horizontal'\" \n\t\t\t\t(drop)=\"onColumnDrop($event)\" \n\t\t\t\t[dragHandleSelector]=\"'.column-drag-handle'\"\n\t\t\t>\n\t\t\t\t<smooth-dnd-draggable *ngFor=\"let column of scene.children\">\n\t\t\t\t\t<div [ngClass]=\"column.props.className\">\n\t\t\t\t\t\t<div class=\"card-column-header\">\n\t\t\t\t\t\t\t<span class=\"column-drag-handle\">&#x2630;</span>\n\t\t\t\t\t\t\t{{column.name}}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<smooth-dnd-container \n\t\t\t\t\t\t\t[groupName]=\"'col'\"\n\t\t\t\t\t\t\t(drop)=\"onCardDrop(column.id, $event)\"\n\t\t\t\t\t\t\t[getChildPayload]=\"getCardPayload(column.id)\"\n\t\t\t\t\t\t\t[dragClass]=\"'card-ghost'\"\n\t\t\t\t\t\t\t[dropClass]=\"'card-ghost-drop'\"\n\t\t\t\t\t\t\t(dragStart)=\"log('drag start', $event)\"\n\t\t\t\t\t\t\t(dragEnd)=\"log('drag end', $event)\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<smooth-dnd-draggable *ngFor=\"let card of column.children\">\n\t\t\t\t\t\t\t\t<div [ngClass]=\"card.props.className\" [ngStyle]=\"card.props.style\">\n\t\t\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\t\t\t{{card.data}}\n\t\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</smooth-dnd-draggable>\n\t\t\t\t\t\t</smooth-dnd-container>\n\t\t\t\t\t</div>\n\t\t\t\t</smooth-dnd-draggable>\n\t\t\t</smooth-dnd-container>\n    </div>\n\t"
+            template: "\n\t\t<div class=\"card-scene\">\n\t\t\t<smooth-dnd-container \n\t\t\t\t[orientation]=\"'horizontal'\" \n\t\t\t\t(drop)=\"onColumnDrop($event)\" \n\t\t\t\t[dragHandleSelector]=\"'.column-drag-handle'\"\n\t\t\t>\n\t\t\t\t<smooth-dnd-draggable *ngFor=\"let column of scene.children\">\n\t\t\t\t\t<div [ngClass]=\"column.props.className\">\n\t\t\t\t\t\t<div class=\"card-column-header\">\n\t\t\t\t\t\t\t<span class=\"column-drag-handle\">&#x2630;</span>\n\t\t\t\t\t\t\t{{column.name}}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<smooth-dnd-container \n\t\t\t\t\t\t\t[groupName]=\"'col'\"\n\t\t\t\t\t\t\t(drop)=\"onCardDrop(column.id, $event)\"\n\t\t\t\t\t\t\t[getChildPayload]=\"getCardPayload(column.id)\"\n\t\t\t\t\t\t\t[dragClass]=\"'card-ghost'\"\n\t\t\t\t\t\t\t[dropClass]=\"'card-ghost-drop'\"\n\t\t\t\t\t\t\t(dragStart)=\"log('drag start', $event)\"\n\t\t\t\t\t\t\t(dragEnd)=\"log('drag end', $event)\"\t\t\n\t\t\t\t\t\t\t(dropReady)=\"log('drop ready', $event)\"\t\t\t\t\t\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<smooth-dnd-draggable *ngFor=\"let card of column.children\">\n\t\t\t\t\t\t\t\t<div [ngClass]=\"card.props.className\" [ngStyle]=\"card.props.style\">\n\t\t\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\t\t\t{{card.data}}\n\t\t\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</smooth-dnd-draggable>\n\t\t\t\t\t\t</smooth-dnd-container>\n\t\t\t\t\t</div>\n\t\t\t\t</smooth-dnd-draggable>\n\t\t\t</smooth-dnd-container>\n    </div>\n\t"
         })
     ], CardsComponent);
     return CardsComponent;
@@ -1318,7 +1329,7 @@ exports.generateItems = function (count, creator) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\kutlu\Desktop\ngx-smooth-dnd\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\ksahin\Desktop\ngx-smooth-dnd\src\main.ts */"./src/main.ts");
 
 
 /***/ })
