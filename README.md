@@ -73,6 +73,7 @@ Component that contains the draggable elements or components. Each of its childr
 |[dropClass]|string|`undefined`|Class to be added to the ghost item just before the drop animation begins.|
 |(dragStart)|EventEmitter|`undefined`|*See descriptions below*|
 |(dragEnd)|EventEmitter|`undefined`|*See descriptions below*|
+|(dropReady)|EventEmitter|`undefined`|*See descriptions below*|
 |(drop)|EventEmitter|`undefined`|*See descriptions below*|
 |[getChildPayload]|function|`undefined`|*See descriptions below*|
 |[shouldAnimateDrop]|function|`undefined`|*See descriptions below*|
@@ -115,6 +116,25 @@ onDragEnd({isSource: boolean, payload: any, willAcceptDrop: boolean}) {
 - **isSource** : `boolean` : true if it is called by the container which drag starts from otherwise false.
 - **payload** : `object` : the payload object that is returned by get-child-payload function. It will be undefined in case get-child-payload is not set.
 - **willAcceptDrop** : `boolean` : true if the dragged item can be dropped into the container, otherwise false.
+
+### dropReady
+
+The function to be called by the container which is being drag over, when the index of possible drop position changed in container. Basically it is called each time the draggables in a container slides for opening a space for dragged item. **dropResult** is the only parameter passed to the function which contains the following properties.
+```ts
+(drop)="onDropReady($event)"
+
+onDropReady(dropResult: IDropResult) {
+  const { removedIndex, addedIndex, payload, element } = dropResult;
+  ...
+}
+```
+
+#### Parameters
+- **dropResult** : `object`
+	- **removedIndex** : `number` : index of the removed children. Will be `null` if no item is removed. 
+	- **addedIndex** : `number` : index to add droppped item. Will be `null` if no item is added. 
+	- **payload** : `object` : the payload object retrieved by calling *getChildPayload* function.
+	- **element** : `DOMElement` : the DOM element that is moved 
 
 ### drop
 
