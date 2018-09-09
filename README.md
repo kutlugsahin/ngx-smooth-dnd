@@ -15,7 +15,19 @@ npm i ngx-smooth-dnd
 
 ## Usage
 
-#### JSX
+Add **NgxSmoothDnDModule** to your app module imports
+```ts
+import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
+
+@NgModule({
+  imports: [
+    NgxSmoothDnDModule
+  ],
+  ...
+})
+export class AppModule { }
+
+```
 
 
 ```ts
