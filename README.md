@@ -23,6 +23,7 @@ import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
   imports: [
     NgxSmoothDnDModule
   ],
+  bootstrap: [AppComponent]
   ...
 })
 export class AppModule { }
