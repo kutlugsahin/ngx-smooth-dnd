@@ -13,6 +13,8 @@ This library consists wrapper Angular components over <a href="https://github.co
 npm i ngx-smooth-dnd
 ```
 
+Add `NgxSmoothDnDModule` to the imports section in the file app.module.ts 
+
 ## Usage
 
 Add **NgxSmoothDnDModule** to your app module imports
