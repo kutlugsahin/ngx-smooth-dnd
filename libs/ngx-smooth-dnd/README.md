@@ -23,11 +23,13 @@ import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
   imports: [
     NgxSmoothDnDModule
   ],
+  bootstrap: [AppComponent]
   ...
 })
 export class AppModule { }
 
 ```
+
 
 ```ts
 import { Component } from '@angular/core';
@@ -72,7 +74,7 @@ Component that contains the draggable elements or components. Each of its childr
 | Property | Type | Default | Description |
 |-|:-:|:-:|-|
 | [orientation] |string|`vertical` | Orientation of the container. Can be **horizontal** or **vertical**.|
-|[behaviour]|string|`move`| Property to describe weather the dragging item will be moved or copied to target container. Can be **move** or **copy**.|
+|[behaviour]|string|`move`| Property to describe weather the dragging item will be moved or copied to target container. Can be **move** or **copy** or **drop-zone** or **contain**.|
 |[groupName]|string|`undefined`|Draggables can be moved between the containers having the same group names. If not set container will not accept drags from outside. This behaviour can be overriden by shouldAcceptDrop function. See below.
 |[lockAxis]|string|`undefined`|Locks the movement axis of the dragging. Possible values are **x**, **y** or **undefined**.
 |[dragHandleSelector]|string|`undefined`|Css selector to test for enabling dragging. If not given item can be grabbed from anywhere in its boundaries.|
@@ -82,6 +84,7 @@ Component that contains the draggable elements or components. Each of its childr
 |[autoScrollEnabled]|boolean|`true`|First scrollable parent will scroll automatically if dragging item is close to boundaries.
 |[dragClass]|string|`undefined`|Class to be added to the ghost item being dragged. The class will be added after it's added to the DOM so any transition in the class will be applied as intended.
 |[dropClass]|string|`undefined`|Class to be added to the ghost item just before the drop animation begins.|
+|[dropPlaceholder]|boolean,object|`undefined`|Options for drop placeholder. **className**, **animationDuration**, **showOnTop**|
 |(dragStart)|EventEmitter|`undefined`|*See descriptions below*|
 |(dragEnd)|EventEmitter|`undefined`|*See descriptions below*|
 |(dropReady)|EventEmitter|`undefined`|*See descriptions below*|
@@ -91,6 +94,7 @@ Component that contains the draggable elements or components. Each of its childr
 |[shouldAcceptDrop]|function|`undefined`|*See descriptions below*|
 |(dragEnter)|EventEmitter|`undefined`|*See descriptions below*|
 |(dragLeave)|EventEmitter|`undefined`|*See descriptions below*|
+|[getGhostParent]|function|`undefined`|*See descriptions below*|
 
 ---
 
@@ -236,6 +240,19 @@ The event to be emitted by the relevant container whenever a dragged item leaves
 
 onDragLeave() {
   ...
+}
+```
+
+### getGhostParent
+
+The function to be called to get the element that the dragged ghost will be appended. Default parent element is the container itself.
+The ghost element is positioned as 'fixed' and appended to given parent element. 
+But if any anchestor of container has a transform property, ghost element will be positioned relative to that element which breaks the calculations. Thats why if you have any transformed parent element of Containers you should set this property so that it returns any element that has not transformed parent element.
+```ts
+(getGhostParent)="getGhostParent()"
+
+getGhostParent() {
+  // i.e return document.body;
 }
 ```
 

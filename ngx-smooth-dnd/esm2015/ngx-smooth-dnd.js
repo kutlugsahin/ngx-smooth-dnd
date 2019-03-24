@@ -1,10 +1,9 @@
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
  * Generated bundle index. Do not edit.
  */
-export { NgxSmoothDnDModule, ContainerComponent, DraggableComponent } from './public_api';
-
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmd4LXNtb290aC1kbmQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ3gtc21vb3RoLWRuZC8iLCJzb3VyY2VzIjpbIm5neC1zbW9vdGgtZG5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSwyRUFBYyxjQUFjLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEdlbmVyYXRlZCBidW5kbGUgaW5kZXguIERvIG5vdCBlZGl0LlxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vcHVibGljX2FwaSc7XG4iXX0=
+export { NgxSmoothDnDModule, ContainerComponent, DraggableComponent, smoothDnD, constants, dropHandlers } from './public_api';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmd4LXNtb290aC1kbmQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ3gtc21vb3RoLWRuZC8iLCJzb3VyY2VzIjpbIm5neC1zbW9vdGgtZG5kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSwrR0FBYyxjQUFjLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEdlbmVyYXRlZCBidW5kbGUgaW5kZXguIERvIG5vdCBlZGl0LlxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vcHVibGljX2FwaSc7XG4iXX0=

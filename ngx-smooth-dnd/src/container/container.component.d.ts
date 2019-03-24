@@ -1,38 +1,10 @@
 import { QueryList, ElementRef, AfterViewInit, OnDestroy, EventEmitter, NgZone } from '@angular/core';
 import { DraggableComponent } from '../draggable/draggable.component';
-export interface IDropResult {
-    removedIndex: number;
-    addedIndex: number;
-    payload: IPayload;
-    element: Element;
-}
-export interface IDragEvent {
+import { DropResult, ContainerOptions } from 'smooth-dnd';
+export interface DragStartEndInfo {
     isSource: boolean;
-    payload: IPayload;
+    payload: any;
     willAcceptDrop: boolean;
-}
-export declare type IPayload = any;
-export interface IContainerOptions {
-    orientation?: string;
-    behaviour?: string;
-    groupName?: string;
-    lockAxis?: string;
-    dragHandleSelector?: string;
-    nonDragAreaSelector?: string;
-    dragBeginDelay?: number;
-    animationDuration?: number;
-    autoScrollEnabled?: boolean;
-    dragClass?: string;
-    dropClass?: string;
-    onDragStart?: (dragEvent: IDragEvent) => void;
-    onDragEnd?: (dragEvent: IDragEvent) => void;
-    onDrop?: (dropResult: IDropResult) => void;
-    getChildPayload?: (index: number) => {};
-    shouldAnimateDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
-    shouldAcceptDrop?: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
-    onDragEnter?: () => void;
-    onDragLeave?: () => void;
-    onDropReady?: (dropResult: IDropResult) => void;
 }
 export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     private _ngZone;
@@ -50,18 +22,21 @@ export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     autoScrollEnabled: any;
     dragClass: any;
     dropClass: any;
-    dragStart: EventEmitter<IDragEvent>;
-    dragEnd: EventEmitter<IDragEvent>;
-    drop: EventEmitter<IDropResult>;
-    dropReady: EventEmitter<IDropResult>;
+    dropPlaceholder: any;
+    removeOnDropOut: any;
+    dragStart: EventEmitter<DragStartEndInfo>;
+    dragEnd: EventEmitter<DragStartEndInfo>;
+    drop: EventEmitter<DropResult>;
+    dropReady: EventEmitter<DropResult>;
     getChildPayload: (index: number) => {};
-    shouldAnimateDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
-    shouldAcceptDrop: (sourceContainerOptions: IContainerOptions, payload: IPayload) => boolean;
+    shouldAnimateDrop: (sourceContainerOptions: ContainerOptions, payload: any) => boolean;
+    shouldAcceptDrop: (sourceContainerOptions: ContainerOptions, payload: any) => boolean;
     dragEnter: EventEmitter<{}>;
     dragLeave: EventEmitter<{}>;
+    getGhostParent: () => HTMLElement;
     constructor(_ngZone: NgZone);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
-    private getOptions();
-    private getNgZone(clb);
+    private getOptions;
+    private getNgZone;
 }

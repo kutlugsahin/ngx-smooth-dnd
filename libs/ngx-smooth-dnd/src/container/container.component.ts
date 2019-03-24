@@ -1,66 +1,14 @@
 import { Component, ContentChildren, QueryList, AfterContentInit, ViewChild, ElementRef, AfterViewInit, Input, OnDestroy, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
 import { DraggableComponent } from '../draggable/draggable.component';
-import SmoothDnD, { constants, dropHandlers } from 'smooth-dnd';
-import { wrappedError } from '@angular/core/src/error_handler';
+import { dropHandlers, smoothDnD, DropResult, ContainerOptions } from 'smooth-dnd';
 
-SmoothDnD.wrapChild = (child) => {
-  return child;
-}
+smoothDnD.dropHandler = dropHandlers.reactDropHandler().handler;
+smoothDnD.wrapChild = false;
 
-SmoothDnD.dropHandler =  dropHandlers.reactDropHandler().handler;
-
-const {
-  wrapperClass,
-  animationClass
-} = constants;
-
-const wrapperConstantClasses = {
-  [wrapperClass]: true,
-  [animationClass]: true,
-};
-// tslint:disable:no-output-on-prefix
-export interface IDropResult {
-  removedIndex: number;
-  addedIndex: number;
-  payload: IPayload;
-  element: Element;
-}
-
-export interface IDragEvent {
+export interface DragStartEndInfo {
   isSource: boolean;
-  payload: IPayload;
+  payload: any;
   willAcceptDrop: boolean;
-}
-
-export type IPayload = any;
-
-export interface IContainerOptions {
-  orientation?: string;
-  behaviour?: string;
-  groupName?: string;
-  lockAxis?: string;
-  dragHandleSelector?: string;
-  nonDragAreaSelector?: string;
-  dragBeginDelay?: number;
-  animationDuration?: number;
-  autoScrollEnabled?: boolean;
-  dragClass?: string;
-  dropClass?: string;
-  onDragStart?: (dragEvent: IDragEvent) => void;
-  onDragEnd?: (dragEvent: IDragEvent) => void;
-  onDrop?: (dropResult: IDropResult) => void;
-  getChildPayload?: (index: number) => {};
-  shouldAnimateDrop?: (
-    sourceContainerOptions: IContainerOptions,
-    payload: IPayload
-  ) => boolean;
-  shouldAcceptDrop?: (
-    sourceContainerOptions: IContainerOptions,
-    payload: IPayload
-  ) => boolean;
-  onDragEnter?: () => void;
-  onDragLeave?: () => void;
-  onDropReady?: (dropResult: IDropResult) => void;
 }
 
 @Component({
@@ -85,29 +33,34 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   @Input("autoScrollEnabled") autoScrollEnabled;
   @Input("dragClass") dragClass;
   @Input("dropClass") dropClass;
+  @Input("dropPlaceholder") dropPlaceholder;
+  @Input("removeOnDropOut") removeOnDropOut;
 
-  @Output() dragStart = new EventEmitter<IDragEvent>();
-  @Output() dragEnd = new EventEmitter<IDragEvent>();
-  @Output() drop = new EventEmitter<IDropResult>();
-  @Output() dropReady = new EventEmitter<IDropResult>();
+  @Output() dragStart = new EventEmitter<DragStartEndInfo>();
+  @Output() dragEnd = new EventEmitter<DragStartEndInfo>();
+  @Output() drop = new EventEmitter<DropResult>();
+  @Output() dropReady = new EventEmitter<DropResult>();
   @Input() getChildPayload: (index: number) => {};
   @Input()
   shouldAnimateDrop: (
-    sourceContainerOptions: IContainerOptions,
-    payload: IPayload
+    sourceContainerOptions: ContainerOptions,
+    payload: any
   ) => boolean;
   @Input()
   shouldAcceptDrop: (
-    sourceContainerOptions: IContainerOptions,
-    payload: IPayload
+    sourceContainerOptions: ContainerOptions,
+    payload: any
   ) => boolean;
   @Output() dragEnter = new EventEmitter();
   @Output() dragLeave = new EventEmitter();
 
-  constructor(private _ngZone: NgZone) {}
+  @Input()
+  getGhostParent: () => HTMLElement;
+
+  constructor(private _ngZone: NgZone) { }
 
   ngAfterViewInit() {
-    this.container = SmoothDnD(
+    this.container = smoothDnD(
       this.containerElementRef.nativeElement,
       this.getOptions()
     );
@@ -116,8 +69,8 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
     this.container.dispose();
   }
 
-  private getOptions(): IContainerOptions {
-    const options: IContainerOptions = {};
+  private getOptions(): ContainerOptions {
+    const options: ContainerOptions = {};
     if (this.orientation) options.orientation = this.orientation;
     if (this.behaviour) options.behaviour = this.behaviour;
     if (this.groupName) options.groupName = this.groupName;
@@ -133,23 +86,24 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
       options.autoScrollEnabled = this.autoScrollEnabled;
     if (this.dragClass) options.dragClass = this.dragClass;
     if (this.dropClass) options.dropClass = this.dropClass;
+    if (this.dropPlaceholder) options.dropPlaceholder = this.dropPlaceholder;
 
     if (this.dragStart)
-      options.onDragStart = (event: IDragEvent) => {
+      options.onDragStart = (info: DragStartEndInfo) => {
         this.getNgZone(() => {
-          this.dragStart.emit(event);
+          this.dragStart.emit(info);
         });
       };
-    
+
     if (this.dragEnd)
-      options.onDragEnd = (event: IDragEvent) => {
+      options.onDragEnd = (info: DragStartEndInfo) => {
         this.getNgZone(() => {
-          this.dragEnd.emit(event);
+          this.dragEnd.emit(info);
         });
       };
 
     if (this.drop)
-      options.onDrop = (dropResult: IDropResult) => {
+      options.onDrop = (dropResult: DropResult) => {
         this.getNgZone(() => {
           this.drop.emit(dropResult);
         });
@@ -166,11 +120,13 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
       options.onDragLeave = () => this.getNgZone(() => this.dragLeave.emit());
 
     if (this.dropReady)
-      options.onDropReady = (dropResult: IDropResult) => {
+      options.onDropReady = (dropResult: DropResult) => {
         this.getNgZone(() => {
           this.dropReady.emit(dropResult);
         });
       };
+    
+    if (this.getGhostParent) options.getGhostParent = this.getGhostParent;
 
     return options;
   }

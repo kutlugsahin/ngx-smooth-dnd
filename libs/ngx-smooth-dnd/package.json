@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/package.schema.json",
   "name": "ngx-smooth-dnd",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "license": "MIT",
   "ngPackage": {
     "lib": {
@@ -16,6 +16,6 @@
     ]
   },
   "dependencies": {
-    "smooth-dnd": "0.6.2"
+    "smooth-dnd": "0.9.3"
   }
 }

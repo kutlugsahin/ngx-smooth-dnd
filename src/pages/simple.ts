@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ContainerComponent, DraggableComponent, IDropResult } from 'ngx-smooth-dnd';
+import { ContainerComponent, DraggableComponent, DropResult } from 'ngx-smooth-dnd';
 import { applyDrag, generateItems } from './utils';
 
 @Component({
@@ -20,7 +20,7 @@ import { applyDrag, generateItems } from './utils';
 })
 export class SimpleComponent {
   items = generateItems(50, i => ({ data: 'Draggable ' + i }))
-  onDrop(dropResult: IDropResult) {
+  onDrop(dropResult: DropResult) {
     this.items = applyDrag(this.items, dropResult);
   }
 }
