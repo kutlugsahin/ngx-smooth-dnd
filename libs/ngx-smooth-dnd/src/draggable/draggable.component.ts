@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit, Renderer2} from '@angular/core';
 import { constants } from 'smooth-dnd';
 const {
   wrapperClass,
@@ -16,8 +16,11 @@ const constantClasses = {
   templateUrl: './draggable.component.html'
 })
 export class DraggableComponent implements AfterViewInit {
-  @ViewChild('draggableWrapper') wrapper: ElementRef;
+  constructor(private elRef: ElementRef,
+              private renderer: Renderer2,
+  ) {
+  }
   ngAfterViewInit() {
-    this.wrapper.nativeElement.parentNode.className = constants.wrapperClass;
+    this.renderer.addClass(this.elRef.nativeElement, constants.wrapperClass);
   }
 }
