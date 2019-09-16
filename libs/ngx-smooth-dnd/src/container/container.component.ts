@@ -35,6 +35,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   @Input("dropClass") dropClass;
   @Input("dropPlaceholder") dropPlaceholder;
   @Input("removeOnDropOut") removeOnDropOut;
+  @Input("useTransformForGhost") useTransformForGhost;
 
   @Output() dragStart = new EventEmitter<DragStartEndInfo>();
   @Output() dragEnd = new EventEmitter<DragStartEndInfo>();
@@ -64,6 +65,8 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
       this.containerElementRef.nativeElement,
       this.getOptions()
     );
+
+    if(this.useTransformForGhost) this.container.useTransformForGhost = this.useTransformForGhost;
   }
   ngOnDestroy(): void {
     this.container.dispose();
