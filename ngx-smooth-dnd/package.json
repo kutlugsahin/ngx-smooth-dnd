@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "license": "MIT",
   "dependencies": {
-    "smooth-dnd": "0.9.3",
+    "smooth-dnd": "0.12.0",
     "tslib": "^1.9.0"
   },
   "main": "bundles/ngx-smooth-dnd.umd.js",

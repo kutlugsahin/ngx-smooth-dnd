@@ -16,6 +16,6 @@
     ]
   },
   "dependencies": {
-    "smooth-dnd": "0.9.3"
+    "smooth-dnd": "0.12.0"
   }
 }
