@@ -20,7 +20,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   private container: any;
   @ContentChildren(DraggableComponent)
   draggables: QueryList<DraggableComponent>;
-  @ViewChild("container") containerElementRef: ElementRef;
+  @ViewChild("container", {static: true}) containerElementRef: ElementRef;
 
   @Input("orientation") orientation;
   @Input("behaviour") behaviour;
@@ -125,7 +125,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
           this.dropReady.emit(dropResult);
         });
       };
-    
+
     if (this.getGhostParent) options.getGhostParent = this.getGhostParent;
 
     return options;
