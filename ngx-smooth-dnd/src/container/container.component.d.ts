@@ -24,6 +24,7 @@ export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     dropClass: any;
     dropPlaceholder: any;
     removeOnDropOut: any;
+    useTransformForGhost: any;
     dragStart: EventEmitter<DragStartEndInfo>;
     dragEnd: EventEmitter<DragStartEndInfo>;
     drop: EventEmitter<DropResult>;
@@ -31,8 +32,8 @@ export declare class ContainerComponent implements AfterViewInit, OnDestroy {
     getChildPayload: (index: number) => {};
     shouldAnimateDrop: (sourceContainerOptions: ContainerOptions, payload: any) => boolean;
     shouldAcceptDrop: (sourceContainerOptions: ContainerOptions, payload: any) => boolean;
-    dragEnter: EventEmitter<{}>;
-    dragLeave: EventEmitter<{}>;
+    dragEnter: EventEmitter<any>;
+    dragLeave: EventEmitter<any>;
     getGhostParent: () => HTMLElement;
     constructor(_ngZone: NgZone);
     ngAfterViewInit(): void;

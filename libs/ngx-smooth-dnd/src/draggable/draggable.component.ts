@@ -16,7 +16,7 @@ const constantClasses = {
   templateUrl: './draggable.component.html'
 })
 export class DraggableComponent implements AfterViewInit {
-  @ViewChild('draggableWrapper') wrapper: ElementRef;
+  @ViewChild('draggableWrapper', {static: true}) wrapper: ElementRef;
   ngAfterViewInit() {
     this.wrapper.nativeElement.parentNode.className = constants.wrapperClass;
   }
