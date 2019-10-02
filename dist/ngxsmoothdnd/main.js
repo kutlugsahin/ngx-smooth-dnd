@@ -38,17 +38,6 @@ tslib_1.__exportStar(__webpack_require__(/*! smooth-dnd */ "./node_modules/smoot
 
 /***/ }),
 
-/***/ "./libs/ngx-smooth-dnd/src/container/container.component.html":
-/*!********************************************************************!*\
-  !*** ./libs/ngx-smooth-dnd/src/container/container.component.html ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div #container>\r\n    <ng-content></ng-content>\r\n</div>"
-
-/***/ }),
-
 /***/ "./libs/ngx-smooth-dnd/src/container/container.component.ts":
 /*!******************************************************************!*\
   !*** ./libs/ngx-smooth-dnd/src/container/container.component.ts ***!
@@ -77,6 +66,8 @@ var ContainerComponent = /** @class */ (function () {
     }
     ContainerComponent.prototype.ngAfterViewInit = function () {
         this.container = smooth_dnd_1.smoothDnD(this.containerElementRef.nativeElement, this.getOptions());
+        if (this.useTransformForGhost)
+            this.container.useTransformForGhost = this.useTransformForGhost;
     };
     ContainerComponent.prototype.ngOnDestroy = function () {
         this.container.dispose();
@@ -151,12 +142,15 @@ var ContainerComponent = /** @class */ (function () {
             clb();
         });
     };
+    ContainerComponent.ctorParameters = function () { return [
+        { type: core_1.NgZone }
+    ]; };
     tslib_1.__decorate([
         core_1.ContentChildren(draggable_component_1.DraggableComponent),
         tslib_1.__metadata("design:type", core_1.QueryList)
     ], ContainerComponent.prototype, "draggables", void 0);
     tslib_1.__decorate([
-        core_1.ViewChild("container"),
+        core_1.ViewChild("container", { static: true }),
         tslib_1.__metadata("design:type", core_1.ElementRef)
     ], ContainerComponent.prototype, "containerElementRef", void 0);
     tslib_1.__decorate([
@@ -212,6 +206,10 @@ var ContainerComponent = /** @class */ (function () {
         tslib_1.__metadata("design:type", Object)
     ], ContainerComponent.prototype, "removeOnDropOut", void 0);
     tslib_1.__decorate([
+        core_1.Input("useTransformForGhost"),
+        tslib_1.__metadata("design:type", Object)
+    ], ContainerComponent.prototype, "useTransformForGhost", void 0);
+    tslib_1.__decorate([
         core_1.Output(),
         tslib_1.__metadata("design:type", Object)
     ], ContainerComponent.prototype, "dragStart", void 0);
@@ -255,7 +253,7 @@ var ContainerComponent = /** @class */ (function () {
         core_1.Component({
             // tslint:disable-next-line:component-selector
             selector: "smooth-dnd-container",
-            template: __webpack_require__(/*! ./container.component.html */ "./libs/ngx-smooth-dnd/src/container/container.component.html")
+            template: tslib_1.__importDefault(__webpack_require__(/*! raw-loader!./container.component.html */ "./node_modules/raw-loader/dist/cjs.js!./libs/ngx-smooth-dnd/src/container/container.component.html")).default
         }),
         tslib_1.__metadata("design:paramtypes", [core_1.NgZone])
     ], ContainerComponent);
@@ -263,17 +261,6 @@ var ContainerComponent = /** @class */ (function () {
 }());
 exports.ContainerComponent = ContainerComponent;
 
-
-/***/ }),
-
-/***/ "./libs/ngx-smooth-dnd/src/draggable/draggable.component.html":
-/*!********************************************************************!*\
-  !*** ./libs/ngx-smooth-dnd/src/draggable/draggable.component.html ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<ng-container #draggableWrapper>\r\n    <ng-content></ng-content>\r\n</ng-container>"
 
 /***/ }),
 
@@ -286,9 +273,9 @@ module.exports = "<ng-container #draggableWrapper>\r\n    <ng-content></ng-conte
 
 "use strict";
 
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var _a;
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var smooth_dnd_1 = __webpack_require__(/*! smooth-dnd */ "./node_modules/smooth-dnd/dist/index.js");
 var wrapperClass = smooth_dnd_1.constants.wrapperClass, animationClass = smooth_dnd_1.constants.animationClass;
@@ -303,14 +290,14 @@ var DraggableComponent = /** @class */ (function () {
         this.wrapper.nativeElement.parentNode.className = smooth_dnd_1.constants.wrapperClass;
     };
     tslib_1.__decorate([
-        core_1.ViewChild('draggableWrapper'),
+        core_1.ViewChild('draggableWrapper', { static: true }),
         tslib_1.__metadata("design:type", core_1.ElementRef)
     ], DraggableComponent.prototype, "wrapper", void 0);
     DraggableComponent = tslib_1.__decorate([
         core_1.Component({
             // tslint:disable-next-line:component-selector
             selector: 'smooth-dnd-draggable',
-            template: __webpack_require__(/*! ./draggable.component.html */ "./libs/ngx-smooth-dnd/src/draggable/draggable.component.html")
+            template: tslib_1.__importDefault(__webpack_require__(/*! raw-loader!./draggable.component.html */ "./node_modules/raw-loader/dist/cjs.js!./libs/ngx-smooth-dnd/src/draggable/draggable.component.html")).default
         })
     ], DraggableComponent);
     return DraggableComponent;
@@ -352,6 +339,274 @@ exports.NgxSmoothDnDModule = NgxSmoothDnDModule;
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/dist/cjs.js!./libs/ngx-smooth-dnd/src/container/container.component.html":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./libs/ngx-smooth-dnd/src/container/container.component.html ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div #container>\r\n    <ng-content></ng-content>\r\n</div>");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./libs/ngx-smooth-dnd/src/draggable/draggable.component.html":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./libs/ngx-smooth-dnd/src/draggable/draggable.component.html ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container #draggableWrapper>\r\n    <ng-content></ng-content>\r\n</ng-container>");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html":
+/*!**************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\r\n<div [ngClass]=\"'app'\">\r\n\t<div [ngClass]=\"navButtonClass\" (click)=\"toggleNav()\">\r\n\t\t<span></span>\r\n\t\t<span></span>\r\n\t\t<span></span>\r\n\t\t<span></span>\r\n\t</div>\r\n\t<div [ngClass]=\"navigatorClass\">\r\n\t\t<div [ngClass]=\"'navigator-content'\">\r\n\t\t\t<div [ngClass]=\"'navigator-header'\">\r\n\t\t\t\t<h3>ngx-smooth-dnd</h3>\r\n\t\t\t\t<div [ngClass]=\"'divider'\"></div>\r\n\t\t\t</div>\r\n\t\t\t<div>\r\n\t\t\t\t<div *ngFor=\"let section of pages\" [ngClass]=\"'menu-section'\">\r\n\t\t\t\t\t<h4>{{section.title}}</h4>\r\n\t\t\t\t\t<ul>\t\t\t\t\t\t\r\n\t\t\t\t\t\t<li *ngFor=\"let page of section.pages\" [ngClass]=\"page.selected ? 'selected' : ''\" (click)=\"selectPage(page)\">{{page.title}}</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div [ngClass]=\"'content'\">\r\n\t\t<div [ngClass]=\"headerClass\">\r\n\t\t\t{{selectedPage.title}}\r\n\t\t\t<div [ngClass]=\"'source-code'\" (click)=\"openCode()\">\r\n\t\t\t\t<img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZml0PSIiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiIGZvY3VzYWJsZT0iZmFsc2UiPgogICAgPHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwVjB6Ij48L3BhdGg+CiAgICA8cGF0aCBkPSJNOS40IDE2LjZMNC44IDEybDQuNi00LjZMOCA2bC02IDYgNiA2IDEuNC0xLjR6bTUuMiAwbDQuNi00LjYtNC42LTQuNkwxNiA2bDYgNi02IDYtMS40LTEuNHoiIGZpbGw9IiNGRkYiPjwvcGF0aD4KPC9zdmc+Cg==\"\r\n\t\t\t\t alt=\"\" />\r\n\t\t\t\t<span>source</span>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div [ngClass]=\"'demo'\">\r\n\t\t\t<app-simple *ngIf=\"selectedPage.page == 'simple'\"></app-simple>\r\n\t\t\t<app-simple-scroller *ngIf=\"selectedPage.page == 'simple-scroller'\"></app-simple-scroller>\r\n\t\t\t<app-simple-horizontal *ngIf=\"selectedPage.page == 'simple-horizontal'\"></app-simple-horizontal>\r\n\t\t\t<app-groups *ngIf=\"selectedPage.page == 'groups'\"></app-groups>\r\n\t\t\t<app-copy *ngIf=\"selectedPage.page == 'copy'\"></app-copy>\r\n\t\t\t<app-nested *ngIf=\"selectedPage.page == 'nested'\"></app-nested>\r\n\t\t\t<app-lock-axis *ngIf=\"selectedPage.page == 'lock-axis'\"></app-lock-axis>\r\n\t\t\t<app-drag-handle *ngIf=\"selectedPage.page == 'drag-handle'\"></app-drag-handle>\r\n\t\t\t<app-drag-class *ngIf=\"selectedPage.page == 'drag-class'\"></app-drag-class>\r\n\t\t\t<app-drag-delay *ngIf=\"selectedPage.page == 'drag-delay'\"></app-drag-delay>\r\n\t\t\t<app-transition-duration *ngIf=\"selectedPage.page == 'transition-duration'\"></app-transition-duration>\r\n\t\t\t<app-cards *ngIf=\"selectedPage.page == 'cards'\"></app-cards>\r\n\t\t\t<app-form *ngIf=\"selectedPage.page == 'form'\"></app-form>\r\n\t\t</div>\r\n\t</div>\r\n</div>");
+
+/***/ }),
+
+/***/ "./node_modules/tslib/tslib.es6.js":
+/*!*****************************************!*\
+  !*** ./node_modules/tslib/tslib.es6.js ***!
+  \*****************************************/
+/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__extends", function() { return __extends; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__assign", function() { return __assign; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__rest", function() { return __rest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__decorate", function() { return __decorate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__param", function() { return __param; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__metadata", function() { return __metadata; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__awaiter", function() { return __awaiter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__generator", function() { return __generator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__exportStar", function() { return __exportStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__values", function() { return __values; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__read", function() { return __read; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spread", function() { return __spread; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spreadArrays", function() { return __spreadArrays; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__await", function() { return __await; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncGenerator", function() { return __asyncGenerator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncDelegator", function() { return __asyncDelegator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncValues", function() { return __asyncValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__makeTemplateObject", function() { return __makeTemplateObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importStar", function() { return __importStar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__importDefault", function() { return __importDefault; });
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __exportStar(m, exports) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+function __values(o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result.default = mod;
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+
+/***/ }),
+
 /***/ "./src/$$_lazy_route_resource lazy recursive":
 /*!**********************************************************!*\
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
@@ -379,21 +634,12 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*!***********************************!*\
   !*** ./src/app/app.component.css ***!
   \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/app.component.html":
-/*!************************************!*\
-  !*** ./src/app/app.component.html ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\r\n<div [ngClass]=\"'app'\">\r\n\t<div [ngClass]=\"navButtonClass\" (click)=\"toggleNav()\">\r\n\t\t<span></span>\r\n\t\t<span></span>\r\n\t\t<span></span>\r\n\t\t<span></span>\r\n\t</div>\r\n\t<div [ngClass]=\"navigatorClass\">\r\n\t\t<div [ngClass]=\"'navigator-content'\">\r\n\t\t\t<div [ngClass]=\"'navigator-header'\">\r\n\t\t\t\t<h3>ngx-smooth-dnd</h3>\r\n\t\t\t\t<div [ngClass]=\"'divider'\"></div>\r\n\t\t\t</div>\r\n\t\t\t<div>\r\n\t\t\t\t<div *ngFor=\"let section of pages\" [ngClass]=\"'menu-section'\">\r\n\t\t\t\t\t<h4>{{section.title}}</h4>\r\n\t\t\t\t\t<ul>\t\t\t\t\t\t\r\n\t\t\t\t\t\t<li *ngFor=\"let page of section.pages\" [ngClass]=\"page.selected ? 'selected' : ''\" (click)=\"selectPage(page)\">{{page.title}}</li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t<div [ngClass]=\"'content'\">\r\n\t\t<div [ngClass]=\"headerClass\">\r\n\t\t\t{{selectedPage.title}}\r\n\t\t\t<div [ngClass]=\"'source-code'\" (click)=\"openCode()\">\r\n\t\t\t\t<img src=\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZml0PSIiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiIGZvY3VzYWJsZT0iZmFsc2UiPgogICAgPHBhdGggZmlsbD0ibm9uZSIgZD0iTTAgMGgyNHYyNEgwVjB6Ij48L3BhdGg+CiAgICA8cGF0aCBkPSJNOS40IDE2LjZMNC44IDEybDQuNi00LjZMOCA2bC02IDYgNiA2IDEuNC0xLjR6bTUuMiAwbDQuNi00LjYtNC42LTQuNkwxNiA2bDYgNi02IDYtMS40LTEuNHoiIGZpbGw9IiNGRkYiPjwvcGF0aD4KPC9zdmc+Cg==\"\r\n\t\t\t\t alt=\"\" />\r\n\t\t\t\t<span>source</span>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div [ngClass]=\"'demo'\">\r\n\t\t\t<app-simple *ngIf=\"selectedPage.page == 'simple'\"></app-simple>\r\n\t\t\t<app-simple-scroller *ngIf=\"selectedPage.page == 'simple-scroller'\"></app-simple-scroller>\r\n\t\t\t<app-simple-horizontal *ngIf=\"selectedPage.page == 'simple-horizontal'\"></app-simple-horizontal>\r\n\t\t\t<app-groups *ngIf=\"selectedPage.page == 'groups'\"></app-groups>\r\n\t\t\t<app-copy *ngIf=\"selectedPage.page == 'copy'\"></app-copy>\r\n\t\t\t<app-nested *ngIf=\"selectedPage.page == 'nested'\"></app-nested>\r\n\t\t\t<app-lock-axis *ngIf=\"selectedPage.page == 'lock-axis'\"></app-lock-axis>\r\n\t\t\t<app-drag-handle *ngIf=\"selectedPage.page == 'drag-handle'\"></app-drag-handle>\r\n\t\t\t<app-drag-class *ngIf=\"selectedPage.page == 'drag-class'\"></app-drag-class>\r\n\t\t\t<app-drag-delay *ngIf=\"selectedPage.page == 'drag-delay'\"></app-drag-delay>\r\n\t\t\t<app-transition-duration *ngIf=\"selectedPage.page == 'transition-duration'\"></app-transition-duration>\r\n\t\t\t<app-cards *ngIf=\"selectedPage.page == 'cards'\"></app-cards>\r\n\t\t\t<app-form *ngIf=\"selectedPage.page == 'form'\"></app-form>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */");
 
 /***/ }),
 
@@ -434,8 +680,8 @@ var AppComponent = /** @class */ (function () {
     AppComponent = tslib_1.__decorate([
         core_1.Component({
             selector: 'app-root',
-            template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
-            styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
+            template: tslib_1.__importDefault(__webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html")).default,
+            styles: [tslib_1.__importDefault(__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")).default]
         })
     ], AppComponent);
     return AppComponent;
@@ -494,6 +740,7 @@ exports.AppModule = AppModule;
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 exports.environment = {
     production: false
 };
@@ -518,6 +765,7 @@ exports.environment = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var platform_browser_dynamic_1 = __webpack_require__(/*! @angular/platform-browser-dynamic */ "./node_modules/@angular/platform-browser-dynamic/fesm5/platform-browser-dynamic.js");
 var app_module_1 = __webpack_require__(/*! ./app/app.module */ "./src/app/app.module.ts");
@@ -1198,6 +1446,7 @@ exports.TransitionDurationComponent = TransitionDurationComponent;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 exports.applyDrag = function (arr, dragResult) {
     var removedIndex = dragResult.removedIndex, addedIndex = dragResult.addedIndex, payload = dragResult.payload;
     if (removedIndex === null && addedIndex === null)
@@ -1230,7 +1479,7 @@ exports.generateItems = function (count, creator) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\kutlu\Desktop\ngx-smooth-dnd\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\ksahin\Desktop\ngx-smooth-dnd\src\main.ts */"./src/main.ts");
 
 
 /***/ })

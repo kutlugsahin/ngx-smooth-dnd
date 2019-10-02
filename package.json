@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build:lib": "ng-packagr -p ./libs/ngx-smooth-dnd/package.json",
-    "publish": "npm run build:lib && npm publish dist/ngx-smooth-dnd",
+    "publish": "npm run build:lib && npm publish ngx-smooth-dnd",
     "deploy": "ng build --base-href /ngx-smooth-dnd/ && gh-pages -d dist/ngxsmoothdnd"
   },
   "private": true,
