@@ -2,7 +2,7 @@
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('smooth-dnd')) :
     typeof define === 'function' && define.amd ? define('ngx-smooth-dnd', ['exports', '@angular/core', '@angular/common', 'smooth-dnd'], factory) :
     (global = global || self, factory(global['ngx-smooth-dnd'] = {}, global.ng.core, global.ng.common, global.SmoothDnD));
-}(this, function (exports, core, common, smoothDnd) { 'use strict';
+}(this, (function (exports, core, common, smoothDnd) { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -462,5 +462,5 @@
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=ngx-smooth-dnd.umd.js.map
