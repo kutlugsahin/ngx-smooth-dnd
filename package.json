@@ -23,7 +23,7 @@
     "classlist.js": "^1.1.20150312",
     "core-js": "^3.2.1",
     "intl": "1.2.5",
-    "ng-packagr": "5.5.1",
+    "ng-packagr": "10.1.1",
     "rxjs": "^6.5.3",
     "smooth-dnd": "^0.12.1",
     "tsickle": "^0.36.0",
